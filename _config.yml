@@ -1,6 +1,10 @@
-safe: true
+title: FOCUS
+description: OBSESSION Z-TURN
+
+Safe: true
 lsi: false
 markdown: rdiscount
+hightlight: pygments
 encoding: utf-8
 source: /home/chaucer/anbulang.github.io
 gems:
@@ -8,3 +12,23 @@ gems:
 - jemoji
 - jekyll-redirect-from
 - jekyll-sitemap
+
+# Owner/author information
+owner:
+  name:           anbulang
+  avatar:         avatar.jpg
+  bio:            "An ignorant coder majoring in BME, a little bit obsessive and z-turn."
+  # Social networking links used in footer. Update and remove as you like.
+  twitter:        anbulang
+  github:         anbulang
+  instagram:      anbulang
+
+# Amount of posts to show on home page
+paginate: 5
+
+#多说评论框架
+comments:
+  provider: duoshuo
+  duoshuo:
+    short_name: anbulang.duoshuo.com
+
