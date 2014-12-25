@@ -1,0 +1,189 @@
+---
+layout: page
+title: 字符串4
+category: Algorithm
+tags: 正则表达式
+image:
+  feature: abstract-7.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+comments: true
+modified: 2014-09-24
+---
+
+## 正则表达式
+
+### 正则表达式描述模式
+
+- 连接操作：例如 AB
+- 或操作：例如 A\|B，连接操作的优先级高于或操作
+- 闭包操作：模式的闭包是将模式和自身连接任意多次或零次，用*表示。闭包的优先级高于连接操作。空字符串记为$\epsilon$
+- 括号：改变默认的优先级
+
+### 缩略写法
+
+**字符集描述符**
+
+名称|记法|举例
+:-----|:---|:---
+通配符| . |A.B
+|----
+指定的集合|包含在[]中的字符|[AEIOU]*
+|----
+范围集合|包含在[]中，由“-”分隔|[a-z][0-9]
+|----
+补集|包含在[]中，首字母为“^”|[^aeiou]
+|----
+{: rules="groups" }
+
+**闭包的简写**
+
+选项|记法|举例|原始写法
+:-----|:---|:---|:-----
+至少重复一次|+|(AB)+|(AB)(AB)*
+|----
+重复0次或1次|?|(AB)?|AB\|$\epsilon$
+|----
+重复指定次数|由{}指定次数|(AB){3}|(AB)(AB)(AB)
+|----
+重复指定范围的次数|由{}指定范围|(AB){1-2}|(AB)\|(AB)(AB)
+|----
+{: rules="groups" }
+
+### 非确定有限状态自动机（NFA）
+
+正则表达式的模式匹配通过构造非确定优先状态自动机（NFA）并模拟它的运行来实现。这与KMP算法类似：
+
+- 构造和给定正则表达式相对应的NFA。
+- 模拟NFA在给定文本上的运行轨迹。
+
+> Kleene定理证明了对于任意正则表达式都存在一个与之对应的非确定有限状态自动机，反之亦然。
+
+**NFA实例：**
+
+<a href="http://imgbox.com/ZYd0jUCh" target="_blank"><img src="http://i.imgbox.com/ZYd0jUCh.jpg" alt="image host"/></a>
+
+- 长度为M的正则表达式的每个字符在所对应的NFA中都有且只有一个对应的状态。NFA的起始状态为0并含有一个（虚拟的）接受状态M。
+- 字母所对应的状态都有一条指向下一个状态的边（图中黑色的边）。
+- 元字符“(”、“)”、“|”、“*”所对应的状态至少含有一条指出的边（图中红色的边）。
+- 一个状态只能有一条指出的黑色的边。
+
+**NFA与DFA的不同：**
+
+- 字符对应的是结点而不是边。
+- NFA只有在读取了文本中的所有字符之后才能识别它。
+- NFA中离开一个状态的装换可能有多种情况，即不确定的。
+
+**NFA中状态的转换规则：**
+
+- **匹配转化** 当前状态和文本中的字符相匹配。
+- **$\epsilon$转换** 自动机可以通过红色的边转换到另一个状态而不扫描文本中的任何字符。
+
+### 模拟NFA的运行
+
+**用char数组re[]保存正则表达式本身，这个数组也表示了匹配转换。$\epsilon$转换通过有向图G表示。**
+
+**NFA的模式与可达性：**
+
+<a href="http://imgbox.com/9pYVrijZ" target="_blank"><img src="http://i.imgbox.com/9pYVrijZ.jpg" alt="image host"/></a>
+
+> 判定一个长度为$M$的正则表达式所对应的NFA能否识别一段长度为$N$的文本所需的时间在最坏情况下和$MN$成正比。
+
+### 构造与正则表达式对应的NFA
+
+类似于双栈算法对表达式求值：
+
+- **连接** 状态的匹配转换和字母表中的字符的对应关系就是连接操作的实现。
+- **括号** 左括号入栈，遇右括号出栈。
+- **闭包** “*”可能出现在①单个字符之后，此时在该字符和“\*”之间添加两条相互指向的$\epsilon$转换 ②右括号之后，此时在对应的左括号和“\*”之间添加两条相互指向的$\epsilon$转换 
+- **或** 在形如(A|B)的正则表达式中，A和B也都是正则表达式。处理方式：碰到“|”时，先将“|”入栈。出栈的元素是“|”时，添加两条$\epsilon$转换 ：①从左括号对应的状态指向B中的第一个字符所对应的状态  ②从“|”对应的状态指向右括号所对应的状态
+
+{% highlight java %}
+public class NFA {
+    // 匹配转换
+    private char[] re;
+    // epsilon转换
+    private Digraph graph;
+    // 正则表达式的元素个数
+    private int M;
+    
+    // 通过构造方法构造上述两种转换
+    public NFA(String reg) {
+        re = reg.toCharArray();
+        M = re.length;
+        // 图含有M+1个节点(0,1.....M)
+        graph = new Digraph(M + 1);
+        // 需要栈来记录左括号和或操作
+        Stack<Integer> stack = new Stack<>();
+        
+        // 通过往图中添加有向边构建epsilon转换
+        for (int i = 0; i < M; i++) {
+            // 左括号的状态位置，如果没有括号则记录字符的状态索引
+            int lp = i;
+            // 如果碰到"(","|",状态索引入栈
+            if (re[i] == '(' || re[i] == '|')
+                stack.push(i);
+            // 如果碰到")"则出栈
+            else if (re[i] == ')') {
+                int index = stack.pop();
+                if (re[index] == '|') {
+                    // 左括号出栈
+                    lp = stack.pop();
+                    // 添加两条epsilon转换
+                    graph.addEdge(lp, index+1);
+                    graph.addEdge(index, i);
+                }
+                else lp = index;
+            }
+            // 对于闭包操作，两种情况分别添加两条epsilon转换
+            if (i < M - 1 && re[i+1] == '*') {
+                graph.addEdge(lp, i+1);
+                graph.addEdge(i+1, lp);
+            }
+            // 其他epsilon转换
+            if (re[i] == '(' || re[i] == ')' || re[i] == '*') {
+                graph.addEdge(i, i+1);
+            }
+        }
+    }
+    
+    /**
+     * 判断文本txt能否匹配正则表达式
+     * @ param txt
+     * @ return
+     */
+    public boolean recognizes(String txt) {
+        int N = txt.length();
+        DirectedDFS dfs = new DirectedDFS(graph, 0);
+        // 保存初始状态
+        Bag<Integer> pc = new Bag<>();
+        for (int v = 0; v < graph.v(); v++)
+            if (dfs.marked(v)) pc.add(v);
+        
+        // 识别文本
+        for (int i = 0; i < N; i++) {
+            Bag<Integer> match = new Bag<>();
+            for (int v : pc) 
+                if (v < M)
+                    if (re[v] == txt.charAt(i) || re[v] == '.')
+                        //匹配转换
+                        match.add(v + 1);
+            // 更新状态集合
+            pc = new Bag<>();
+            dfs = new DirectedDFS(graph, match);
+            // 记录当前所有可达状态
+            for (int v = 0; v < graph.v(); v++)
+                if (dfs.marked(v)) pc.add(v);
+        }
+        
+        for (int v : pc) 
+            if (v == M) return true;
+        return false;
+    }
+}
+{% endhighlight %}
+
+<a href="http://imgbox.com/ESLGntKH" target="_blank"><img src="http://i.imgbox.com/ESLGntKH.jpg" alt="image host"/></a>
+
+> 构造和长度为$M$的正则表达式相对应的NFA所需的时间和空间在最坏情况下与$M$成正比。
+

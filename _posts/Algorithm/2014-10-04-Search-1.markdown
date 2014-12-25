@@ -1,0 +1,307 @@
+---
+layout: page
+title: 查找1
+catalog: Algorithm
+tags: 符号表 
+image:
+  feature: abstract-8.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+comments: true
+modified: 2014-10-04
+---
+
+## 符号表
+
+符号表遵循以下规则：没有重复的键、没有空键，空值。如下是一个简单的泛型符号表API：
+
+<figure>
+     <a href="http://algs4.cs.princeton.edu/31elementary/images/symbol-table-api.png"><img src="http://algs4.cs.princeton.edu/31elementary/images/symbol-table-api.png" alt=""/></a>
+</figure>
+
+### 无序链表中的顺序查找
+
+使用基于链表的符号表的索引用例的轨迹
+
+<figure>
+     <a href="http://algs4.cs.princeton.edu/31elementary/images/sequential-search.png"><img src="http://algs4.cs.princeton.edu/31elementary/images/sequential-search.png" alt=""/></a>
+</figure>
+
+
+{% highlight java %}
+public class SequentialSearchST<Key, Value> {
+    private int N;           // number of key-value pairs
+    private Node first;      // the linked list of key-value pairs
+
+    // a helper linked list data type
+    private class Node {
+        private Key key;
+        private Value val;
+        private Node next;
+
+        public Node(Key key, Value val, Node next)  {
+            this.key  = key;
+            this.val  = val;
+            this.next = next;
+        }
+    }
+
+    /**
+     * Initializes an empty symbol table.
+     */
+    public SequentialSearchST() {
+    }
+
+    /**
+     * Returns the number of key-value pairs in this symbol table.
+     * @ return the number of key-value pairs in this symbol table
+     */
+    public int size() {
+        return N;
+    }
+
+    /**
+     * Is this symbol table empty?
+     * @ return <tt>true</tt> if this symbol table is empty and <tt>false</tt> otherwise
+     */
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
+    /**
+     * Does this symbol table contain the given key?
+     * @ param key the key
+     * @ return <tt>true</tt> if this symbol table contains <tt>key</tt> and
+     *     <tt>false</tt> otherwise
+     */
+    public boolean contains(Key key) {
+        return get(key) != null;
+    }
+
+    /**
+     * Returns the value associated with the given key.
+     * @ param key the key
+     * @ return the value associated with the given key if the key is in the symbol table
+     *     and <tt>null</tt> if the key is not in the symbol table
+     */
+    public Value get(Key key) {
+        for (Node x = first; x != null; x = x.next) {
+            if (key.equals(x.key)) return x.val;
+        }
+        return null;
+    }
+
+    /**
+     * Inserts the key-value pair into the symbol table, overwriting the old value
+     * with the new value if the key is already in the symbol table.
+     * If the value is <tt>null</tt>, this effectively deletes the key from the symbol table.
+     * @ param key the key
+     * @ param val the value
+     */
+    public void put(Key key, Value val) {
+        if (val == null) { delete(key); return; }
+        for (Node x = first; x != null; x = x.next)
+            if (key.equals(x.key)) { x.val = val; return; }
+        first = new Node(key, val, first);
+        N++;
+    }
+
+    /**
+     * Removes the key and associated value from the symbol table
+     * (if the key is in the symbol table).
+     * @ param key the key
+     */
+    public void delete(Key key) {
+        first = delete(first, key);
+    }
+
+    // delete key in linked list beginning at Node x
+    // warning: function call stack too large if table is large
+    private Node delete(Node x, Key key) {
+        if (x == null) return null;
+        if (key.equals(x.key)) { N--; return x.next; }
+        x.next = delete(x.next, key);
+        return x;
+    }
+
+
+    /**
+     * Returns all keys in the symbol table as an <tt>Iterable</tt>.
+     * To iterate over all of the keys in the symbol table named <tt>st</tt>,
+     * use the foreach notation: <tt>for (Key key : st.keys())</tt>.
+     * @ return all keys in the sybol table as an <tt>Iterable</tt>
+     */
+    public Iterable<Key> keys()  {
+        Queue<Key> queue = new Queue<Key>();
+        for (Node x = first; x != null; x = x.next)
+            queue.enqueue(x.key);
+        return queue;
+    }
+
+
+    /**
+     * Unit tests the <tt>SequentialSearchST</tt> data type.
+     */
+    public static void main(String[] args) {
+        SequentialSearchST<String, Integer> st = new SequentialSearchST<String, Integer>();
+        for (int i = 0; !StdIn.isEmpty(); i++) {
+            String key = StdIn.readString();
+            st.put(key, i);
+        }
+        for (String s : st.keys())
+            StdOut.println(s + " " + st.get(s));
+    }
+}
+{% endhighlight %}
+
+>    向一个空表中插入N个不同的键需要~$N^2/2$次比较。
+
+### 有序数组中的二分查找
+
+数据结构是一堆平行的数组，一个存储键一个存储值。其API如下
+<figure>
+     <a href="http://algs4.cs.princeton.edu/31elementary/images/ordered-symbol-table-api.png"><img src="http://algs4.cs.princeton.edu/31elementary/images/ordered-symbol-table-api.png" alt=""/></a>
+</figure>
+
+{% highlight java %}
+
+public class BinarySearchST<K extends Comparable<K>, V> {
+
+    private K[] keys;
+    private V[] values; // 两个平行数组
+    private int N;      // 记录符号表的大小
+    
+    @ SuppressWarnings("unchecked")
+    public BinarySearchST(int capacity) {
+        keys = (K[]) new Comparable[capacity];
+        values = (V[]) new Object[capacity];
+    }
+    
+    public int size() {
+        return N;
+    }
+    
+    public V get(K key) {
+        if (isEmpty()) return null;
+        int i = rank(key);
+        if (i < N && keys[i].compareTo(key) == 0) return values[i];
+        else return null;
+    }
+    
+    public boolean isEmpty() {
+        return N == 0;
+    }
+    
+    public void put(K key, V value) {
+        // 查找键
+        int i = rank(key);
+        // 判断返回的索引指向的key值是否在原数组中
+        if (i < N && keys[i].compareTo(key) == 0) {
+            values[i] = value;
+            return;
+        }
+        // 如果原数组中不存在该键
+        for (int j = N; j > i; j--) {
+            keys[j] = keys[j - 1];
+            values[j] = values[j - 1];
+        }
+        keys[i] = key;
+        values[i] = value;
+        N++;
+    }
+    
+    /**
+     * 查找key，找到返回key的索引，未找到返回小于key的键的数量
+     */
+    public int rank(K key) {
+        return rank(key, 0, N - 1);
+    }
+    
+    private int rank(K key, int lo, int hi) {
+        if (hi < lo) return lo; //返回较大的值
+        int mid = lo + (hi - lo) / 2;
+        int cmp = keys[mid].compareTo(key);
+        if (cmp < 0) return rank(key, mid + 1, hi);
+        else if (cmp > 0) return rank(key, lo, mid - 1);
+        else return mid;
+    }
+    
+    /**
+     * rank 的非递归实现
+     */
+    public int rank1(K key) {
+        // 需要左右两个指针
+        int lo = 0, hi = N - 1;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            int cmp = key.compareTo(keys[mid]);
+            if (cmp > 0) lo = mid + 1;
+            else if (cmp < 0) hi = mid - 1;
+            else return mid;
+        }
+        return lo;
+    }
+    
+    public K min() {
+        if (isEmpty()) return null;
+        return keys[0];
+    }
+    
+    public K max() {
+        if (isEmpty()) return null;
+        return keys[N - 1];
+    }
+    
+    public K select(int k) {
+        if (k < 0 || k >= N) return null;
+        return keys[k];
+    }
+    
+    public K ceiling(K key) {
+        int i = rank(key);
+        return keys[i];
+    }
+    
+    public K floor(K key) {
+        int i = rank(key);
+        if (i < N && keys[i].compareTo(key) == 0) return keys[i];
+        if (i == 0) return null;
+        return keys[i - 1];
+    }
+    
+    public void delete(K key) {
+        int i = rank(key);
+        // key不存在则退出
+        if (i == N || keys[i].compareTo(key) != 0) return;
+        for (int j = i; j < N - 1; j++) {
+            keys[j] = keys[j + 1];
+            values[j] = values[j + 1];
+        }
+        keys[N - 1] = null;
+        values[N - 1] = null;
+        N--;
+    }
+    
+}
+{% endhighlight %}
+
+<figure>
+    <a href="http://algs4.cs.princeton.edu/31elementary/images/binary-search.png"><img src="http://algs4.cs.princeton.edu/31elementary/images/binary-search.png" alt=""/></a>
+</figure>
+
+### 符号表各种实现的优缺点
+
+数据结构|实现|优点|缺点
+:----|:----|:----|:----
+链表（顺序查找）|SequentialSearchST|适用于小型问题|对于大型符号表很慢
+|----
+有序数组（二分查找）|BinarySearchST|最优的查找效率和空间需求，能够进行有序性相关的操作|插入操作很慢
+|----
+二叉查找树|BST|实现简单，能够进行有序性相关的操作|没有性能上界的保证，链接需要额外的空间
+|----
+平衡二叉查找树|RedBlackBST|最优的查找和插入效率，能够进行有序性相关的操作|连接需要额外的空间
+|----
+散列表|HashST|能够快速的查找和插入常见类型的数据|需要计算每种类型的数据的散列，无法进行有序性相关的操作，链接和空节点需要额外的空间
+|----
+{: rules="groups" }
+
