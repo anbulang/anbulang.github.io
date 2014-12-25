@@ -37,7 +37,7 @@ public class SeparateChainingHashST<K, V> {
         this(997);
     }
     
-    @SuppressWarnings("unchecked")
+    @ SuppressWarnings("unchecked")
     public SeparateChainingHashST(int M) {
         this.M = M;
         st = (SequentialSearchST<K, V>[]) new SequentialSearchST[M];
@@ -88,7 +88,7 @@ public class LinearProbingHashST<K, V> {
         this(INIT_CAPACITY);
     }
     
-    @SuppressWarnings("unchecked")
+    @ SuppressWarnings("unchecked")
     public LinearProbingHashST(int capacity) {
         M = capacity;
         keys = (K[]) new Object[M];
