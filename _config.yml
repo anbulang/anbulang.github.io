@@ -23,12 +23,12 @@ owner:
   github:         anbulang
   instagram:      anbulang
 
+# Analytics and webmaster tools stuff goes here
+google_analytics: UA-57958205-1 
+google_verify:  
+
 # Amount of posts to show on home page
 paginate: 5
 
 #多说评论框架
-comments:
-  provider: duoshuo
-  duoshuo:
-    short_name: anbulang.duoshuo.com
-
+duoshuo_shortname: anbulang
