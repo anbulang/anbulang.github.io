@@ -1,11 +1,10 @@
 title: FOCUS
 description: OBSESSION Z-TURN
-url: //blog.anbulang.com
 
 Safe: true
 lsi: false
-markdown: rdiscount
 hightlight: pygments
+mfrkdown: rdiscount
 encoding: utf-8
 source: /home/chaucer/anbulang.github.io
 gems:
