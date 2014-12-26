@@ -28,7 +28,7 @@ google_analytics: UA-57958205-1
 google_verify:  
 
 # Amount of posts to show on home page
-paginate: 5
+paginate: 2
 
 #多说评论框架
 duoshuo_shortname: anbulang

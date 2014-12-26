@@ -4,7 +4,7 @@ title: 查找1
 catalog: Algorithm
 tags: 符号表 
 image:
-  feature: abstract-8.jpg
+  feature: abstract-9.jpg
   credit: dargadgetz
   creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
 comments: true
