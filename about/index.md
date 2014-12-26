@@ -13,6 +13,5 @@ modified: 2014-12-24
 
 <center>An ignorant coder majoring in BME, a little bit obsessive and z-turn.</centre>
 
-<br/>
 
-<div markdown="0" style="text-align: center"><a href="http://www.anbulang.com" class="btn btn-info">WordPress 站点</a> 
+<div markdown="0" style="text-align: center; margin-top: 50px;"><a href="http://www.anbulang.com" class="btn btn-info">WordPress 站点</a> 
