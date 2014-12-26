@@ -4,7 +4,7 @@ title: 查找3
 catalog: Algorithm
 tags: 平衡查找树 红黑树
 image:
-  feature: abstract-3.jpg
+  feature: abstract-11.jpg
   credit: dargadgetz
   creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
 comments: true
