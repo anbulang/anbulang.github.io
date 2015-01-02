@@ -6,7 +6,7 @@ lsi: false
 hightlight: pygments
 mfrkdown: rdiscount
 encoding: utf-8
-source: /home/chaucer/anbulang.github.io
+source: /home/chaucer/github/anbulang.github.io
 gems:
 - jemoji
 - jekyll-redirect-from
