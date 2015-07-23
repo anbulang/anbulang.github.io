@@ -1,0 +1,32 @@
+---
+layout: page
+title: 事务
+category: Oracle
+tags: 事务
+image:
+  feature: abstract-6.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+comments: true
+modified: 2015-07-23
+---
+
+事务
+--------------
+
+### ROLLUP,CUBE,GROUPING, GROUPING SET
+
+
+### 多行子查询
+
+
+### 多列子查询
+
+    1. 成对比较
+    2. 非成对比较
+
+### 相关子查询
+
+
+### 合并查询 
+    集合操作符 UNION, UNION ALL, INTERSECT, MINUS 
