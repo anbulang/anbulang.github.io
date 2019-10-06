@@ -1,0 +1,974 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.css.network/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="JavaScript,Objects,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="对象除了字符串、数字、true、false、null和undefined之外，JavaScript的值都是对象。对象最常见的用法是创建(create)、设置(set)、查找(query)、删除(delete)、检测(test)和枚举(enumerate)他的属性。 对象属性的特性：  可写，表明是否可以设置该属性的值。 可枚举，表明是否可以通过for/in循环返回该属性。 可配置，表明是否可以删除">
+<meta name="keywords" content="JavaScript,Objects">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objects">
+<meta property="og:url" content="http://anbulang.com/2016/08/01/JavaScript-2016-08-01-6-Objects/index.html">
+<meta property="og:site_name" content="Focus">
+<meta property="og:description" content="对象除了字符串、数字、true、false、null和undefined之外，JavaScript的值都是对象。对象最常见的用法是创建(create)、设置(set)、查找(query)、删除(delete)、检测(test)和枚举(enumerate)他的属性。 对象属性的特性：  可写，表明是否可以设置该属性的值。 可枚举，表明是否可以通过for/in循环返回该属性。 可配置，表明是否可以删除">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-06T17:42:11.987Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Objects">
+<meta name="twitter:description" content="对象除了字符串、数字、true、false、null和undefined之外，JavaScript的值都是对象。对象最常见的用法是创建(create)、设置(set)、查找(query)、删除(delete)、检测(test)和枚举(enumerate)他的属性。 对象属性的特性：  可写，表明是否可以设置该属性的值。 可枚举，表明是否可以通过for/in循环返回该属性。 可配置，表明是否可以删除">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 8788416,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://anbulang.com/2016/08/01/JavaScript-2016-08-01-6-Objects/">
+
+  <title> Objects | Focus </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d8774f030bde2890ec5f975fe82a9a37";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Focus</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">focus & concentrate</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Objects
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-01T16:20:49+08:00" content="2016-08-01">
+              2016-08-01
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/01/JavaScript-2016-08-01-6-Objects/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/01/JavaScript-2016-08-01-6-Objects/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h1><p>除了字符串、数字、true、false、null和undefined之外，JavaScript的值都是对象。<br>对象最常见的用法是创建(create)、设置(set)、查找(query)、删除(delete)、检测(test)和枚举(enumerate)他的属性。</p>
+<p>对象属性的特性：</p>
+<ul>
+<li>可写，表明是否可以设置该属性的值。</li>
+<li>可枚举，表明是否可以通过for/in循环返回该属性。</li>
+<li>可配置，表明是否可以删除或修改该属性。</li>
+</ul>
+<p>对象的特性：</p>
+<ul>
+<li>对象的原型(prototype)指向另外一个对象，本对象的属性继承自它的原型对象。</li>
+<li>对象的类(class)是一个标识对象类型的字符串。</li>
+<li>对象的扩展标记(extensible flag)指明了是否可以向该对象添加新的属性。</li>
+</ul>
+<p>对象分为内置对象(数组、函数、日期、正则表达式)、宿主对象(HTMLElement等)、自定义对象；属性分为自由属性和继承属性。</p>
+<a id="more"></a>
+
+<h1 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h1><h2 id="对象直接量"><a href="#对象直接量" class="headerlink" title="对象直接量"></a>对象直接量</h2><p><code>var point = {x:0, y:0};</code> 对象直接量是一个表达式，这个表达式的每次运算都创建并初始化一个新的对象。每次计算对象直接量的时候，也都会计算它的每个属性的值。</p>
+<h2 id="new"><a href="#new" class="headerlink" title="new"></a>new</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"><span class="keyword">var</span> d = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line"><span class="keyword">var</span> r = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"js"</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>可通过<code>Object.prototype</code>得对研祥对象的引用；通过new和构造函数创建的对象的原型就是构造函数的<code>prototype</code>属性。<br><code>Object.prototype</code>不继承任何属性。所有的内置构造函数及大部分自定义的构造函数都具有一个继承自<code>Object.prototype</code>的原型。</p>
+<h2 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create()"></a>Object.create()</h2><p>ECMAScript 5定义了一个名为Object.create()的方法，它创建一个新对象，其中第一个参数是这个对象的原型，第二个可选参数可对对象的属性进一步描述。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = <span class="built_in">Object</span>.create(&#123;<span class="attr">x</span>:<span class="number">1</span>,<span class="attr">y</span>:<span class="number">2</span>&#125;);  <span class="comment">// o1继承了属性x和y</span></span><br><span class="line"><span class="keyword">var</span> o2 = <span class="built_in">Object</span>.create(<span class="literal">null</span>);       <span class="comment">// 创建一个没有原型的对象，不继承任何属性和方法</span></span><br><span class="line"><span class="keyword">var</span> o3 = <span class="built_in">Object</span>.create(<span class="built_in">Object</span>.prototype);   <span class="comment">// 同new Object()和&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>在ECMAScript 3中可以用下面的方法模拟原型继承：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// inherit()返回了一个继承自原型对象p的属性的新对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inherit</span>(<span class="params">p</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (p == <span class="literal">null</span>) <span class="keyword">throw</span> <span class="built_in">TypeError</span>();   <span class="comment">// p不能为null</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Object</span>.create)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.create(p);        <span class="comment">// Object.create()存在就直接创建</span></span><br><span class="line">    <span class="keyword">var</span> t = <span class="keyword">typeof</span> p;                   <span class="comment">// 否则，进一步检测</span></span><br><span class="line">    <span class="keyword">if</span> (t !== <span class="string">'object'</span> &amp;&amp; t !== <span class="string">'function'</span>) <span class="keyword">throw</span> <span class="built_in">TypeError</span>();</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f</span> (<span class="params"></span>) </span>&#123;&#125;;                   <span class="comment">// 定义一个空构造函数</span></span><br><span class="line">    f.prototype = p;                    <span class="comment">// 使构造函数的属性设置为p</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> f();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>inherit()函数的一个用途就是防止库函数无意间修改那些不受你控制的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;<span class="attr">x</span>:<span class="string">"don't change this value"</span>&#125;;</span><br><span class="line">library_function(inherit(o));   <span class="comment">// 防止对o的意外修改</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="属性的查询和设置"><a href="#属性的查询和设置" class="headerlink" title="属性的查询和设置"></a>属性的查询和设置</h1><h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>假设要查询对象o的属性x，如果o不存在x，那么将会继续在原型链上查找该属性。现在假设给对象o的属性x赋值，如果o中已有属性x（非继承）,那么这个赋值操作只会改变这个已有属性x的值。如果o中不存在属性x，那么赋值操作给o添加一个新属性x。如果之前o继承了属性x，那么这个继承的属性就被新创建的属性x覆盖了，但不会去修改原型链。<br>如果o继承的属性x是一个具有<strong>setter</strong>方法的accessor属性，那么这时将调用setter而不是给o创建一个属性x。 <strong>由于setter方法是由对象o调用的,而不是定义这个属性的原型对象调用的。</strong>因此如果setter方法定义任何属性，这个操作只是针对o本身，并不会修改原型链。</p>
+<h2 id="属性访问错误"><a href="#属性访问错误" class="headerlink" title="属性访问错误"></a>属性访问错误</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取subtitle的length属性，避免因为subtitle未定义而报错</span></span><br><span class="line"><span class="keyword">var</span> len = book &amp;&amp; book.subtitle &amp;&amp; book.subtitle.length;</span><br></pre></td></tr></table></figure>
+
+<h1 id="删除属性"><a href="#删除属性" class="headerlink" title="删除属性"></a>删除属性</h1><p>delete只是断开属性和宿主对象的联系，而不会删除属性中的属性。delete也无法删除继承的属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = &#123;<span class="attr">p</span>: &#123;<span class="attr">x</span>:<span class="number">1</span>&#125;&#125;;</span><br><span class="line">b = a.p;</span><br><span class="line"><span class="keyword">delete</span> a.p;</span><br><span class="line"><span class="built_in">console</span>.log(b.x);   <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>因此在Javascript的某些实现中，可能因为这种不严谨的代码而造成内存泄露。所以在销毁对象的时候，要遍历属性中的属性，依次删除。</p>
+<p>delete的返回值如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">o = &#123;<span class="attr">x</span>:<span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">delete</span> o.x; <span class="comment">//true</span></span><br><span class="line"><span class="keyword">delete</span> o.x; <span class="comment">//什么都没做,true</span></span><br><span class="line"><span class="keyword">delete</span> o.toString; <span class="comment">//什么都没做,toString是继承来的属性,true</span></span><br><span class="line"><span class="keyword">delete</span> <span class="number">1</span>;   <span class="comment">//无意义返回true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*严格模式下报错，非严格模式下返回false*/</span></span><br><span class="line"><span class="keyword">delete</span> <span class="built_in">Object</span>.prototype; <span class="comment">//不能删除，属性不可配置</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">this</span>.x; <span class="comment">//通过变量或函数声明的全局对象的属性是不可配置的</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">this</span>.f; <span class="comment">//同上</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>.x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">delete</span> x; <span class="comment">//非严格模式下可删除,严格模式下用 delte this.x;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="检测属性"><a href="#检测属性" class="headerlink" title="检测属性"></a>检测属性</h1><ul>
+<li><code>in</code>可检测对象的自有属性或继承属性，包含则返回true</li>
+<li><code>o.hasOwnProperty()</code>只可检测自有属性</li>
+<li><code>o.propertyIsEnumerable()</code>可检测自有的且可枚举的属性</li>
+</ul>
+<h1 id="枚举属性"><a href="#枚举属性" class="headerlink" title="枚举属性"></a>枚举属性</h1><p>for/in可遍历对象的所有可枚举的属性（包括自由属性和继承的属性）。对象继承的<strong>内置方法</strong>都是不可枚举的。有许多使用工具库给<code>Object.prototype</code>添加了新的方法或属性，这些方法和属性可以被所有对象继承并使用。然而在在ECMAScript 5标准之前，这些新添加的方法是不可被定义为不可枚举的，为避免它们在for/in循环中遍历出来可以采用下面的方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (p <span class="keyword">in</span> o) &#123;</span><br><span class="line">    <span class="keyword">if</span> (! o.hasOwnProperty(p)) <span class="keyword">continue</span>; <span class="comment">//过滤继承的属性</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (p <span class="keyword">in</span> o) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> o[p] === <span class="string">'function'</span>) <span class="keyword">continue</span>; <span class="comment">//跳过方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用来枚举属性的对象工具函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 把p中的可枚举属性复制到o中</span></span><br><span class="line"><span class="comment"> * 如果o和p中含有同名属性，则覆盖o中的属性</span></span><br><span class="line"><span class="comment"> * 注意寄存器属性属性getter,setter</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">extend</span>(<span class="params">o, p</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (prop <span class="keyword">in</span> p) &#123;</span><br><span class="line">        o[prop] = p[prop];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 将p中的可枚举属性复制到o中，不处理o自有属性中的同名属性</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">merge</span>(<span class="params">o, p</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> prop <span class="keyword">in</span> p) &#123;</span><br><span class="line">        <span class="keyword">if</span> (o.hasOwnProperty(prop)) <span class="keyword">continue</span>;</span><br><span class="line">        o[prop] = p[prop];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 如果o的有属性在p中不存在，则删除</span></span><br><span class="line"><span class="comment"> * 返回o</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">restrict</span>(<span class="params">o, p</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> prop <span class="keyword">in</span> o) &#123;</span><br><span class="line">        <span class="keyword">if</span> (! (prop <span class="keyword">in</span> p)) <span class="keyword">delete</span> o[prop]; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 如果o中的属性在p中存在同名属性，则从o中删除这个属性</span></span><br><span class="line"><span class="comment"> * 返回o</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">subtract</span>(<span class="params">o, p</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> prop <span class="keyword">in</span> p) &#123;</span><br><span class="line">        <span class="keyword">delete</span> o[prop];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 返回一个新对象，这个对象同时拥有o和p的属性</span></span><br><span class="line"><span class="comment"> * 如果o和p有同名属性，则使用p的属性值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">union</span>(<span class="params">o, p</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> extend(extend(&#123;&#125;, o), p);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 返回一个新对象，这个对象拥有同时在o，p中出现的属性</span></span><br><span class="line"><span class="comment"> * 使用o的属性值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">intersection</span>(<span class="params">o, p</span>) </span>&#123;</span><br><span class="line">    renturn restrict(extend(&#123;&#125;, o), p);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 返回一个数组，包含o中可枚举的自有属性的名字</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">keys</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> o !== <span class="string">"object"</span>)  thtow <span class="built_in">TypeError</span>();</span><br><span class="line">    <span class="keyword">var</span> result = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> prop <span class="keyword">in</span> o) &#123;</span><br><span class="line">        <span class="keyword">if</span> (o.hasOwnProperty(prop)) </span><br><span class="line">            result.push(prop);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Object.keys()</code>的工作原理与上面的keys类似，返回一个数组，包含对象所有可枚举的自有属性。<br>`Object.getOwnPropertyNames()返回对象的所有自有属性的名称，包括不可枚举的属性。</p>
+<h1 id="属性的getter和setter"><a href="#属性的getter和setter" class="headerlink" title="属性的getter和setter"></a>属性的getter和setter</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">    <span class="comment">// 普通的数据属性</span></span><br><span class="line">    data_prop: value,</span><br><span class="line">    <span class="comment">// 存取器属性</span></span><br><span class="line">    <span class="keyword">get</span> access_prop() &#123; <span class="comment">/*函数体*/</span> &#125;,</span><br><span class="line">    <span class="keyword">set</span> access_prop(value) &#123; <span class="comment">/*函数体*/</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>存取器属性也可以被继承。</p>
+<h1 id="属性的特性"><a href="#属性的特性" class="headerlink" title="属性的特性"></a>属性的特性</h1><p>属性的4个特性：值(value)、可写性(writable)、可枚举性(enumerable)、可配置性(configurable)。存取器属性不具有value和writable特性，它的4个特性是读取(get)、写入(set)、可枚举性和可配置性。<br>为了实现属性特性的查询和设置操作，ECMAScript 5定义了一个名为“属性描述符”(property descriptor)的对象，这个对象代表那四个特性。<br>通过<code>Object.getOwnPropertyDescriptor(对象，属性名)</code>获取属性的特性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回 &#123;value: 1, writable: true, enumerable: true, configurable: true&#125;</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(&#123;<span class="attr">x</span>:<span class="number">1</span>&#125;, <span class="string">'x'</span>);</span><br><span class="line"><span class="comment">// 继承属性和不存在的属性，返回undefined</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(&#123;&#125;, <span class="string">'x'</span>);</span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(&#123;&#125;, <span class="string">'toString'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>设置属性的特性用<code>Object.defineProperty(对象,属性名,属性描述符对象)</code>。这个方法新建自有属性，但不能修改继承属性。如果未在属性描述符对象中指定特性的值，则默认为undefined或false。<code>Object.defineProperties(对象,属性名和属性描述符对象关联数组)</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// o.x为只读属性</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">'x'</span>, &#123;<span class="attr">value</span>:<span class="number">1</span>, <span class="attr">writable</span>: <span class="literal">false</span>, <span class="attr">configurable</span>: <span class="literal">true</span>&#125;);</span><br><span class="line"><span class="comment">// 但是x是可配置的，所以可以通过下面的方法修改它的值</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">'x'</span>, &#123;<span class="attr">value</span>:<span class="number">3</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>它们遵循的规则如下：</p>
+<ul>
+<li>如果对象是不可扩展的，则可以编辑已有的自有属性，但不能给它添加新的属性。</li>
+<li>如果属性是不可配置的，则不能修改它的可配置性和可枚举性。</li>
+<li>如果存取性属性是不可配置的，则不能修改其getter和setter方法，也不能将它转为数据属性。</li>
+<li>如果数据属性是不可配置的，则不能将它转为存取器属性。</li>
+<li>如果数据属性是不可配置的，则不能将它的可写性由false改为true，但是可以从true改为false。</li>
+<li>如果数据属性是不可配置且不可写的，则不能修改它的值。</li>
+</ul>
+<p>利用上述方法改进后的extend方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 给Object.prototype添加一个不可枚举的extend()方法</span></span><br><span class="line"><span class="comment"> * 复制传入对象的属性（包括不可枚举属性）及属性的特性到</span></span><br><span class="line"><span class="comment"> * 调用对象上，跳过同名属性</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="built_in">Object</span>.definedProperty(<span class="built_in">Object</span>.prototype, <span class="string">'extend'</span>, &#123;</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    enumerable: <span class="literal">false</span>,    <span class="comment">//不可枚举</span></span><br><span class="line">    configurable: <span class="literal">true</span>,</span><br><span class="line">    value: <span class="function"><span class="keyword">function</span> (<span class="params">p</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> props = <span class="built_in">Object</span>.getOwnPropertyNames(p);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; props.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (props[i] <span class="keyword">in</span> <span class="keyword">this</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">var</span> des = <span class="built_in">Object</span>.getOwnPropertyDescriptor(p, props[i]);</span><br><span class="line">            <span class="built_in">Object</span>.definedProperty(<span class="keyword">this</span>, props[i], des);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="对象的三个属性"><a href="#对象的三个属性" class="headerlink" title="对象的三个属性"></a>对象的三个属性</h1><p>每个对象都有与之关联的原型(prototype),类(class),可扩展性(extensible)。</p>
+<h2 id="原型属性"><a href="#原型属性" class="headerlink" title="原型属性"></a>原型属性</h2><p><strong>对象的原型是用来继承属性的。</strong><br><code>Object.getPrototypeOf(o)</code>可以查询o的原型。<br><code>isPrototypeOf()</code>用来检测一个对象是否是另一个对象的原型（或处于原型链中）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = &#123;<span class="attr">x</span>:<span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> o = <span class="built_in">Object</span>.create(p);</span><br><span class="line">p.isPrototypeOf(o); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.isPrototypeOf(o); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p><em>通过对象直接量或Object.create()创建的对象包含一个名为constructor的属性，这个属性指代Object()的构造函数。因此constructor.prototype才是对象直接量的真正原型,但对于通过Object.create()创建的对象则往往不是这样。</em></p>
+<h2 id="类属性"><a href="#类属性" class="headerlink" title="类属性"></a>类属性</h2><p>对象的类属性是一个字符串，用以表示对象的类型信息。要想获得对象的类可以调用toString()方法，然后提取已返回字符串的第8到倒数第二个位置之间的字符。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">classof</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (o === <span class="literal">null</span>) <span class="keyword">return</span> <span class="string">"Null"</span>;</span><br><span class="line">    <span class="keyword">if</span> (o === <span class="literal">undefined</span>) <span class="keyword">return</span> <span class="string">"Undefined"</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(o).slice(<span class="number">8</span>, <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于自定义的类，没办法通过类属性来区分对象的类。</p>
+<h2 id="可扩展性"><a href="#可扩展性" class="headerlink" title="可扩展性"></a>可扩展性</h2><p>对象的可扩展性用以表示是否可以给对象添加新属性。所有内置对象和自定义对象都是显式可扩展的，宿主对象的可扩展性是由JavaScript引擎定义的。可扩展属性的目的是将对象锁定，以避免外界的干扰。<br><code>Object.isExtensible(o)</code>来判断对象是否是可扩展的。<br><code>Object.preventExtensions(o)</code>将对象转换为不可扩展的。一旦将对象转换为不可扩展的，就无法再将其转换为可扩展的。它只影响对象本身的可扩展性，<strong>如果给不可扩展对象的原型添加属性，这个不可扩展的对象同样会继承这些新属性。</strong><br><code>Object.seal(o)</code>将对象设置为不可扩展，并且对象的所有自有属性不可配置。也就是说不能给这个对象添加新的属性，而且它已有的属性也不能删除或配置，不过它已有的可写属性依然可以设置。<code>Object.isSealed()</code>用来检测对象是否封闭。<br><code>Object.freeze()</code>将对象设置为不可扩展的，对象的自有属性不可配置，并且对象所有的自有的<strong>数据属性</strong>设置为只读（如果对象的存取器属性具有setter方法，存取器属性将不受影响）。<code>Object.isFrozen()</code>来检测对象是否冻结。</p>
+<h1 id="序列化对象"><a href="#序列化对象" class="headerlink" title="序列化对象"></a>序列化对象</h1><p>ECMAScript 5提供了内置函数<code>JSON.stringify()</code>和<code>JSON.parse()</code>来序列化和还原JavaScript对象。<br>JSON的语法是JavaScript语法的子集，它并不能刚表示JavaScript里的所有值。<code>NaN</code>,<code>Infinity</code>,<code>-Infinity</code>序列化的结果是null,日期对象序列化的结果是ISO格式的日期字符串，但<code>JSON.parse()</code>依然保留他们的字符串形态，而不会将它们还原为原始日期对象。函数、RegExp、Error对象和undefined值不能序列化和还原。<strong><code>JSON.stringify()</code>只能序列化对象的可枚举的自有属性。</strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div></div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weichat_pay.png" alt="anbulang WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+            <a href="/tags/Objects/" rel="tag">#Objects</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/31/JavaScript-2016-07-31-4-Expressions-Operators/" rel="next" title="Expressions and Operators">
+                <i class="fa fa-chevron-left"></i> Expressions and Operators
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/08/01/JavaScript-2016-08-01-6-Objects/" data-title="Objects" data-content data-url="http://anbulang.com/2016/08/01/JavaScript-2016-08-01-6-Objects/">
+  <div class="ds-share-inline">
+    <ul class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/01/JavaScript-2016-08-01-6-Objects/" data-title="Objects" data-url="http://anbulang.com/2016/08/01/JavaScript-2016-08-01-6-Objects/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="anbulang">
+          <p class="site-author-name" itemprop="name">anbulang</p>
+          <p class="site-description motion-element" itemprop="description">An ignorant coder majoring in BME, a little bit obsessive and z-turn.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/anbulang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3235300780" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/anbulang" target="_blank" title="Douban">
+                  
+                    <i class="fa fa-fw fa-dashcube"></i>
+                  
+                  Douban
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#对象"><span class="nav-number">1.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建对象"><span class="nav-number">2.</span> <span class="nav-text">创建对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象直接量"><span class="nav-number">2.1.</span> <span class="nav-text">对象直接量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new"><span class="nav-number">2.2.</span> <span class="nav-text">new</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型"><span class="nav-number">2.3.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-create"><span class="nav-number">2.4.</span> <span class="nav-text">Object.create()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#属性的查询和设置"><span class="nav-number">3.</span> <span class="nav-text">属性的查询和设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#继承"><span class="nav-number">3.1.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性访问错误"><span class="nav-number">3.2.</span> <span class="nav-text">属性访问错误</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除属性"><span class="nav-number">4.</span> <span class="nav-text">删除属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检测属性"><span class="nav-number">5.</span> <span class="nav-text">检测属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#枚举属性"><span class="nav-number">6.</span> <span class="nav-text">枚举属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#属性的getter和setter"><span class="nav-number">7.</span> <span class="nav-text">属性的getter和setter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#属性的特性"><span class="nav-number">8.</span> <span class="nav-text">属性的特性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象的三个属性"><span class="nav-number">9.</span> <span class="nav-text">对象的三个属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原型属性"><span class="nav-number">9.1.</span> <span class="nav-text">原型属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类属性"><span class="nav-number">9.2.</span> <span class="nav-text">类属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可扩展性"><span class="nav-number">9.3.</span> <span class="nav-text">可扩展性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#序列化对象"><span class="nav-number">10.</span> <span class="nav-text">序列化对象</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">anbulang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"anbulang"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>

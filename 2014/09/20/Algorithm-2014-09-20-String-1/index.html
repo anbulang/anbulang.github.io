@@ -1,0 +1,999 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.css.network/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="字符串排序,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="字符串排序低位优先的字符串排序(LSD)如果字符串的长度均为W(即定长字符串)，那就从右向左以每个位置的字符作为键，用键索引计数法将字符串排序W遍。">
+<meta name="keywords" content="字符串排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符串1">
+<meta property="og:url" content="http://anbulang.com/2014/09/20/Algorithm-2014-09-20-String-1/index.html">
+<meta property="og:site_name" content="Focus">
+<meta property="og:description" content="字符串排序低位优先的字符串排序(LSD)如果字符串的长度均为W(即定长字符串)，那就从右向左以每个位置的字符作为键，用键索引计数法将字符串排序W遍。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-06T19:59:18.948Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="字符串1">
+<meta name="twitter:description" content="字符串排序低位优先的字符串排序(LSD)如果字符串的长度均为W(即定长字符串)，那就从右向左以每个位置的字符作为键，用键索引计数法将字符串排序W遍。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 8788416,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://anbulang.com/2014/09/20/Algorithm-2014-09-20-String-1/">
+
+  <title> 字符串1 | Focus </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d8774f030bde2890ec5f975fe82a9a37";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Focus</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">focus & concentrate</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                字符串1
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-09-20T00:00:00+08:00" content="2014-09-20">
+              2014-09-20
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/09/20/Algorithm-2014-09-20-String-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/20/Algorithm-2014-09-20-String-1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="字符串排序"><a href="#字符串排序" class="headerlink" title="字符串排序"></a>字符串排序</h2><h3 id="低位优先的字符串排序-LSD"><a href="#低位优先的字符串排序-LSD" class="headerlink" title="低位优先的字符串排序(LSD)"></a>低位优先的字符串排序(LSD)</h3><p>如果字符串的长度均为W(即<strong>定长字符串</strong>)，那就从右向左以每个位置的字符作为键，用键索引计数法将字符串排序W遍。</p>
+<a id="more"></a>
+
+<blockquote>
+<p>低位优先的字符串排序算法能够<strong>稳定地</strong>将定长字符串排序。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LSD</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 低位优先的字符串排序</span></span><br><span class="line"><span class="comment">     * @ param a 需要排序的字符串数组</span></span><br><span class="line"><span class="comment">     * @ param W 字符串长度</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(String[] a, <span class="keyword">int</span> W)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> N = a.length;</span><br><span class="line">        <span class="keyword">int</span> R = <span class="number">256</span>;    <span class="comment">//ASCII码</span></span><br><span class="line">        String[] aux = <span class="keyword">new</span> String[a.length];    <span class="comment">//拷贝数组</span></span><br><span class="line">        <span class="comment">// 从右往左遍历，每次按每个位置上的键排序</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = W-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] count = <span class="keyword">new</span> <span class="keyword">int</span>[R + <span class="number">1</span>];   <span class="comment">//记录用数组，多需要一个空间。初试值为0</span></span><br><span class="line">            <span class="comment">// 1.统计频率</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; N; j++) &#123;</span><br><span class="line">                count[a[j].charAt(i) + <span class="number">1</span>]++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 2.计算索引</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; R; j++) &#123;</span><br><span class="line">                count[j + <span class="number">1</span>] += count[j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 3.元素分类</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; N; j++) &#123;</span><br><span class="line">                aux[count[a[j].charAt(i)]++] = a[j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 4.原值回写</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; N; j++) &#123;</span><br><span class="line">                a[j] = aux[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="高位优先的字符串排序-MSD"><a href="#高位优先的字符串排序-MSD" class="headerlink" title="高位优先的字符串排序(MSD)"></a>高位优先的字符串排序(MSD)</h3><p><strong>排序策略</strong>是先按高位键索引计数法排序，然后递归地根据子数组中的字符串的首字母将子数组排序。<br>在高位优先的字符串排序算法中，要注意倒带字符串末尾的情况。在排序中合理的做法是将所有字符都已被检查过的字符串排在其他的前面。<br>算法中有一个charAt方法将字符串中的字符索引转化为数组索引，越界则输出-1. 这种转换意味着字符串中的每个字符都可能产生R+1中不同的值，同时键索引计数法本来就需要一个额外的位置，所以使用代码<code>int count[] = new int[R + 2];</code>。同时，<strong>count[]数组中的值（在统计频率、转换为索引并将数据分类之后）正式将每个字符所对应的子数组（递归地）排序时所需要的值</strong>。<br>对于较大的字母表，高位优先的排序算法虽然简单但可能会很危险——如果使用不当，可能会消耗令人无法承受的时间和空间。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MSD</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> R = <span class="number">256</span>;    <span class="comment">//基数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> M = <span class="number">15</span>;    <span class="comment">//小数组切割的切换阈值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String[] aux;    <span class="comment">//数组分类的辅助数组</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(String[] a)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> N = a.length;</span><br><span class="line">        aux = <span class="keyword">new</span> String[N];</span><br><span class="line">        sort(a, <span class="number">0</span>, N-<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(String[] a, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 小数组用插入排序,同时是递归结束条件</span></span><br><span class="line">        <span class="keyword">if</span> (hi &lt;= lo + M)   &#123;</span><br><span class="line">            insertionSort(a, lo, hi, d);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] count = <span class="keyword">new</span> <span class="keyword">int</span>[R + <span class="number">2</span>];</span><br><span class="line">        <span class="comment">//计算频率</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = lo; i &lt;= hi; i++) </span><br><span class="line">            count[charAt(a[i], d) + <span class="number">2</span>]++;</span><br><span class="line">        <span class="comment">//频率转索引</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= R; i++)</span><br><span class="line">            count[i + <span class="number">1</span>] += count[i];</span><br><span class="line">        <span class="comment">//元素分组</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = lo; i &lt;= hi; i++)</span><br><span class="line">            aux[count[charAt(a[i], d) + <span class="number">1</span>]++] = a[i];</span><br><span class="line">        <span class="comment">//元素回写</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = lo; i &lt;= hi; i++) </span><br><span class="line">            a[i] = aux[i - lo];    <span class="comment">//每次递归调用aux只用了hi-lo+1的空间</span></span><br><span class="line">        <span class="comment">//递归的以每个字符为键进行排序</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> r = <span class="number">0</span>; r &lt; R; r++) </span><br><span class="line">            sort(a, lo + count[r], lo + count[r + <span class="number">1</span>] - <span class="number">1</span>, d + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *  插入排序，前置条件：前d个字符均相同</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertionSort</span><span class="params">(String[] a, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = lo; i &lt;= hi; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &gt; lo &amp;&amp; less(a[j], a[j-<span class="number">1</span>], d); j--) &#123;</span><br><span class="line">                String temp = a[j];</span><br><span class="line">                a[j] = a[j-<span class="number">1</span>];</span><br><span class="line">                a[j-<span class="number">1</span>] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">less</span><span class="params">(String a, String b, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a.substring(d).compareTo(b.substring(d)) &lt; <span class="number">0</span>;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回字符串对应位置d上的索引</span></span><br><span class="line"><span class="comment">     * @ param str 字符串</span></span><br><span class="line"><span class="comment">     * @ param d   位置d</span></span><br><span class="line"><span class="comment">     * @ return 索引</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">charAt</span><span class="params">(String str, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (d &lt; str.length())</span><br><span class="line">            <span class="keyword">return</span> str.charAt(d);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><font color="red" size="4"><strong>[NOTE]</strong></font></p>
+<p><strong>1. 小型子数组</strong></p>
+<p>小型子数组对于高位优先的字符串排序的性能至关重要。所以在<code>hi&lt;=lo+W</code>后使用插入排序。下述代码中插入排序的效率取决于<code>substring(d)</code>方法所需的时间是否为<strong>常数</strong>。</p>
+<p><strong>2. 等值键</strong></p>
+<p>高位优先的字符串排序的最坏情况就是所有的键均相同。</p>
+<p><strong>3. 额外空间</strong></p>
+<p>高位优先的字符串排序使用了两个辅助数组（aux[]和count[]）</p>
+<blockquote>
+<p>要将给予大小为R的字母表的N个字符串排序，高位优先的字符串排序算法平均需要检查$Nlog_{R}N$个字符。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>要将给予大小为R的字母表的N个字符串排序，高位优先的字符串排序算法方位数组的次数在$8N+3R$到~$7wN+3wR$之间，其中$w$是字符串的平均长度。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>要将基于大小为R的字母表的N个字符串排序，最坏情况下高位优先的字符串排序算法所需的空间与$N+WR$成正比，其中$W$是最长字符串的长度。</p>
+</blockquote>
+<h3 id="三向字符串快速排序"><a href="#三向字符串快速排序" class="headerlink" title="三向字符串快速排序"></a>三向字符串快速排序</h3><p><strong>排序策略</strong>根据键的首字母进行三向切分，尽在中间子数组中的下一个字符（因为键的首字母都与切分字符相等）继续递归排序。<br>三项字符串快速排序能够很好地处理等值键、有较长公共前缀的键、取值范围较小的键和小数组，且只需要递归所需的隐式栈的额外空间。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**三向字符串快速排序**/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Quick3String</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(String[] a)</span> </span>&#123;</span><br><span class="line">        sort(a, <span class="number">0</span>, a.length-<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 递归方法</span></span><br><span class="line"><span class="comment">     * @ param a 待排序字符串数组</span></span><br><span class="line"><span class="comment">     * @ param lo </span></span><br><span class="line"><span class="comment">     * @ param hi</span></span><br><span class="line"><span class="comment">     * @ param d 字符位置</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(String[] a, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (hi &lt;= lo) <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">// 需要三个索引分别标记小于、待处理、大于v的数据</span></span><br><span class="line">        <span class="keyword">int</span> lt = lo, i = lo + <span class="number">1</span>, gt = hi;</span><br><span class="line">        <span class="keyword">int</span> v = charAt(a[lo], d);</span><br><span class="line">        <span class="keyword">while</span> (i &lt;= gt) &#123;</span><br><span class="line">            <span class="comment">// 待比较字符串</span></span><br><span class="line">            <span class="keyword">int</span> w = charAt(a[i], d);</span><br><span class="line">            <span class="comment">// 比v小</span></span><br><span class="line">            <span class="keyword">if</span> (w &lt; v) exch(a, lo++, i++);</span><br><span class="line">            <span class="comment">// 比v大</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (w &gt; v) exch(a, i, gt--);</span><br><span class="line">            <span class="comment">// 等于v</span></span><br><span class="line">            <span class="keyword">else</span> i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 循环结束后，字符串按第d个字符三向切分：a[lo...lt-1] &lt; v = a[lt...gt] &lt; a[gt+1...hi]</span></span><br><span class="line">        sort(a, lo, lt-<span class="number">1</span>, d);</span><br><span class="line">        <span class="keyword">if</span> (v &gt;= <span class="number">0</span>) sort(a, lt, gt, d + <span class="number">1</span>);</span><br><span class="line">        sort(a, gt+<span class="number">1</span>, hi, d);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">charAt</span><span class="params">(String str, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (d &lt; str.length()) <span class="keyword">return</span> str.charAt(d);</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">exch</span><span class="params">(String[] a, <span class="keyword">int</span> v, <span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">        String temp = a[v];</span><br><span class="line">        a[v] = a[w];</span><br><span class="line">        a[w] = temp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><font color="red" size="4"><strong>[NOTE]</strong></font></p>
+<p><strong>1. 随机化</strong></p>
+<p>和快速排序一样，最好在排序之前将数组打乱或是将第一个元素和一个随机位置的元素交换以得到一个随机的切分元素。这么做主要是为了预防数组已经有序或是接近有序的最坏情况。</p>
+<p><strong>2. 性能</strong></p>
+<p>将含有N个随机字符串的数组排序，三向字符串快速排序平均需要比较字符~$2nlnN$次。</p>
+<h3 id="各种字符串排序算法的性能特点"><a href="#各种字符串排序算法的性能特点" class="headerlink" title="各种字符串排序算法的性能特点"></a>各种字符串排序算法的性能特点</h3><table>
+<thead>
+<tr>
+<th align="left">算法</th>
+<th align="center">是否稳定</th>
+<th align="center">原地排序</th>
+<th align="center">运行时间</th>
+<th align="center">额外空间</th>
+<th align="left">优势领域</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">字符串的插入排序</td>
+<td align="center">是</td>
+<td align="center">是</td>
+<td align="center">$N$到$N^2$之间</td>
+<td align="center">1</td>
+<td align="left">小数组或是已有序的数组</td>
+</tr>
+<tr>
+<td align="left">快速排序</td>
+<td align="center">否</td>
+<td align="center">是</td>
+<td align="center">$Nlog^2N$</td>
+<td align="center">$logN$</td>
+<td align="left">通用排序算法，特别适合用于空间不足的情况</td>
+</tr>
+<tr>
+<td align="left">归并排序</td>
+<td align="center">是</td>
+<td align="center">否</td>
+<td align="center">$Nlog^2N$</td>
+<td align="center">$N$</td>
+<td align="left">稳定的通用排序算法</td>
+</tr>
+<tr>
+<td align="left">三向快速排序</td>
+<td align="center">否</td>
+<td align="center">是</td>
+<td align="center">$N$到$NlogN$之间</td>
+<td align="center">$logN$</td>
+<td align="left">大量重复键</td>
+</tr>
+<tr>
+<td align="left">低位优先（LSD）</td>
+<td align="center">是</td>
+<td align="center">否</td>
+<td align="center">$NW$</td>
+<td align="center">$N$</td>
+<td align="left">较短的定长字符串</td>
+</tr>
+<tr>
+<td align="left">高位优先（MSD)</td>
+<td align="center">是</td>
+<td align="center">否</td>
+<td align="center">$N$到$Nw$之间</td>
+<td align="center">$N+WR$</td>
+<td align="left">随机字符串</td>
+</tr>
+<tr>
+<td align="left">三向字符串快速排序</td>
+<td align="center">否</td>
+<td align="center">是</td>
+<td align="center">$N$到$Nw$之间</td>
+<td align="center">$W+logN$</td>
+<td align="left">通用排序算法，特别适合用于含有较长公共前缀的字符串</td>
+</tr>
+</tbody></table>
+<p>其中运行时间是基于“在将基于大小为R的字母表的N个字符串排序的过程中调用charAt()方法次数的增长数量级（平均长度为$w$,最大长度为$W$）”。<br>$log^2N$说明这些算法中的大多数比较都是在含有长度约为$logN$的公共前缀的字符串之间进行的。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div></div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weichat_pay.png" alt="anbulang WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/字符串排序/" rel="tag">#字符串排序</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/09/10/DesignPattern-2014-09-10-迭代器与组合模式/" rel="next" title="设计模式—迭代器与组合模式">
+                <i class="fa fa-chevron-left"></i> 设计模式—迭代器与组合模式
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/09/20/Algorithm-2014-09-20-String-2/" rel="prev" title="字符串2">
+                字符串2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2014/09/20/Algorithm-2014-09-20-String-1/" data-title="字符串1" data-content data-url="http://anbulang.com/2014/09/20/Algorithm-2014-09-20-String-1/">
+  <div class="ds-share-inline">
+    <ul class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/09/20/Algorithm-2014-09-20-String-1/" data-title="字符串1" data-url="http://anbulang.com/2014/09/20/Algorithm-2014-09-20-String-1/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="anbulang">
+          <p class="site-author-name" itemprop="name">anbulang</p>
+          <p class="site-description motion-element" itemprop="description">An ignorant coder majoring in BME, a little bit obsessive and z-turn.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/anbulang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3235300780" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/anbulang" target="_blank" title="Douban">
+                  
+                    <i class="fa fa-fw fa-dashcube"></i>
+                  
+                  Douban
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串排序"><span class="nav-number">1.</span> <span class="nav-text">字符串排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#低位优先的字符串排序-LSD"><span class="nav-number">1.1.</span> <span class="nav-text">低位优先的字符串排序(LSD)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高位优先的字符串排序-MSD"><span class="nav-number">1.2.</span> <span class="nav-text">高位优先的字符串排序(MSD)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三向字符串快速排序"><span class="nav-number">1.3.</span> <span class="nav-text">三向字符串快速排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种字符串排序算法的性能特点"><span class="nav-number">1.4.</span> <span class="nav-text">各种字符串排序算法的性能特点</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">anbulang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"anbulang"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>

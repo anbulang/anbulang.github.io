@@ -1,0 +1,942 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.css.network/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="JavaScript,Type, Values & Variables,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="字符串的使用123456var s = &quot;hello, world&quot;;s.substring(1,4);	//&quot;ell&quot;,第2-4个字符；与Java的substring(int beginIndex, int endIndex)方法相同。s.slice(1,4);		//&quot;ell&quot;,同上s.silece(-3); 		//&quot;rld&quot;,最后三个字符s.replace(&quot;h&quot;, &quot;H&quot;); //替换s">
+<meta name="keywords" content="JavaScript,Type, Values &amp; Variables">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Types,Values and Variables">
+<meta property="og:url" content="http://anbulang.com/2016/07/27/JavaScript-2016-07-27-3-Types-Values-and-Variables/index.html">
+<meta property="og:site_name" content="Focus">
+<meta property="og:description" content="字符串的使用123456var s = &quot;hello, world&quot;;s.substring(1,4);	//&quot;ell&quot;,第2-4个字符；与Java的substring(int beginIndex, int endIndex)方法相同。s.slice(1,4);		//&quot;ell&quot;,同上s.silece(-3); 		//&quot;rld&quot;,最后三个字符s.replace(&quot;h&quot;, &quot;H&quot;); //替换s">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://anbulang.com/images/javascript/2016-07-28_225314.jpg">
+<meta property="og:updated_time" content="2019-10-06T17:42:12.185Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Types,Values and Variables">
+<meta name="twitter:description" content="字符串的使用123456var s = &quot;hello, world&quot;;s.substring(1,4);	//&quot;ell&quot;,第2-4个字符；与Java的substring(int beginIndex, int endIndex)方法相同。s.slice(1,4);		//&quot;ell&quot;,同上s.silece(-3); 		//&quot;rld&quot;,最后三个字符s.replace(&quot;h&quot;, &quot;H&quot;); //替换s">
+<meta name="twitter:image" content="http://anbulang.com/images/javascript/2016-07-28_225314.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 8788416,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://anbulang.com/2016/07/27/JavaScript-2016-07-27-3-Types-Values-and-Variables/">
+
+  <title> Types,Values and Variables | Focus </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d8774f030bde2890ec5f975fe82a9a37";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Focus</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">focus & concentrate</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Types,Values and Variables
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-27T00:57:49+08:00" content="2016-07-27">
+              2016-07-27
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/27/JavaScript-2016-07-27-3-Types-Values-and-Variables/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/27/JavaScript-2016-07-27-3-Types-Values-and-Variables/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="字符串的使用"><a href="#字符串的使用" class="headerlink" title="字符串的使用"></a>字符串的使用</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">"hello, world"</span>;</span><br><span class="line">s.substring(<span class="number">1</span>,<span class="number">4</span>);	<span class="comment">//"ell",第2-4个字符；与Java的substring(int beginIndex, int endIndex)方法相同。</span></span><br><span class="line">s.slice(<span class="number">1</span>,<span class="number">4</span>);		<span class="comment">//"ell",同上</span></span><br><span class="line">s.silece(<span class="number">-3</span>); 		<span class="comment">//"rld",最后三个字符</span></span><br><span class="line">s.replace(<span class="string">"h"</span>, <span class="string">"H"</span>); <span class="comment">//替换</span></span><br><span class="line">s.toUpperCase();	<span class="comment">//大写</span></span><br></pre></td></tr></table></figure>
+
+<p>在JavaScript中字符串是固定不变的，类似replace()和toUpperCase()的方法都返回新字符串，原字符串本身并没有发生改变。</p>
+<a id="more"></a>
+
+<h1 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> text = <span class="string">'testing: 1, 2, 3'</span>;</span><br><span class="line"><span class="keyword">var</span> pattern = <span class="comment">//d+/g;</span></span><br><span class="line">pattern.test(text);		<span class="comment">//true,匹配成功</span></span><br><span class="line">text.search(pattern);	<span class="comment">//9</span></span><br><span class="line">text.match(pattern); 	<span class="comment">//["1","2","3"]</span></span><br><span class="line">text.replace(pattern, <span class="string">"#"</span>);</span><br><span class="line">text.split(<span class="regexp">/D+/</span>);		<span class="comment">//["","1","2","3"]</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="包装对象"><a href="#包装对象" class="headerlink" title="包装对象"></a>包装对象</h1><p>字符串既然不是对象，为啥会有属性呢？</p>
+<blockquote>
+<p>只要引用了字符串的属性，JavaScript就会将字符串的值通过new String(s)的方式转换为对象，这个对象继承了字符串的方法，被用来处理属性的引用。一旦属性应用结束，这个新创建的对象就会被销毁（不一定创建销毁对象，然而整个过程看起来是这样）。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">"test"</span>;</span><br><span class="line">s.len = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">var</span> t = s.len; <span class="comment">//undefine</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在读取字符串、数字或布尔值的属性值（或方法）时，表现的像对象一样。但如果你试图给它赋值，则会忽略这个操作；修改只是发生在临时对象身上，而这个临时对象并未继续保留下来。事实上字符串、数字和布尔值的属性都是只读的，并且不能给它们定义新的属性，因此它们是有别于对象的。</p>
+</blockquote>
+<h1 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h1><p><img src="/images/javascript/2016-07-28_225314.jpg" alt="类型转换" title="JavaScript类型转换"></p>
+<h1 id="转换和相等性"><a href="#转换和相等性" class="headerlink" title="转换和相等性"></a>转换和相等性</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">null</span> == <span class="literal">undefined</span>;	<span class="comment">//true</span></span><br><span class="line"><span class="string">"0"</span> == <span class="number">0</span>;			<span class="comment">//true, 字符串0转换为数字0</span></span><br><span class="line"><span class="number">0</span> == <span class="literal">false</span>;			<span class="comment">//true, 布尔值转换成数字</span></span><br><span class="line"><span class="string">"0"</span> == <span class="literal">false</span>;		<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="显示类型转换"><a href="#显示类型转换" class="headerlink" title="显示类型转换"></a>显示类型转换</h1><p>显示类型转换最简单的方法就是使用Boolean(),Number(),String()或Object()函数（注意都没有new），当不用过new运算符调用这些函数时，他们会作为类型转换函数。</p>
+<p>类型转换的惯用法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x + <span class="string">""</span> 	<span class="comment">//等价于String(x), “+”运算符连接字符串</span></span><br><span class="line">+x		<span class="comment">//等价于 Number(x), 一元"+"运算符</span></span><br><span class="line">!!x     <span class="comment">//等价于Boolean(x), 一元运算符"!",注意是双！,单!等价于转为布尔值并取反</span></span><br></pre></td></tr></table></figure>
+
+<p>Number类定义的toString()等方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> n = <span class="number">17</span>;</span><br><span class="line">binary_string = n.toString(<span class="number">2</span>);	<span class="comment">//"10001"</span></span><br><span class="line">octal_string = <span class="string">"0"</span> + n.toString(<span class="number">8</span>);	<span class="comment">//"021"</span></span><br><span class="line">hex_string = <span class="string">"0x"</span> + n.tostring(<span class="number">16</span>); <span class="comment">//"0x11"</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> n = <span class="number">123456.78</span>;</span><br><span class="line">n.toFixed(<span class="number">0</span>);		<span class="comment">//"123456"</span></span><br><span class="line">n.toFixed(<span class="number">2</span>); 		<span class="comment">//"123456.79"</span></span><br><span class="line">n.toExponential(<span class="number">3</span>); <span class="comment">//"1.235e+5"</span></span><br><span class="line">n.toPrecision(<span class="number">3</span>);	<span class="comment">//"1.235e+5"</span></span><br><span class="line">n.toPrecision(<span class="number">10</span>);	<span class="comment">//"123456.7890"</span></span><br></pre></td></tr></table></figure>
+
+<p>parseInt()和parseFloat()函数不从属于任何类的方法，前者只解析整数，后者可解析整数和浮点数。parseInt()可接受第二个可选参数，这个参数指定数字转换的基数，合法的取值范围为2~36.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">parseInt</span>(<span class="string">"ff"</span>, <span class="number">16</span>); <span class="comment">//255</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="对象转换为原始值"><a href="#对象转换为原始值" class="headerlink" title="对象转换为原始值"></a>对象转换为原始值</h1><ol>
+<li>对象到字符串的转换<blockquote>
+<p>   (1)  对象有toString()方法，返回一个原始值，转换为字符串；<br>   (2)  否则，调用valueOf()方法，返回一个原始值，转换为字符串；<br>   (3)  否则，抛出类型错误异常。</p>
+</blockquote>
+</li>
+<li>对象到数字的转换<blockquote>
+<p>   (1)  对象有valueOf()方法，返回一个原始值，转换为数字；<br>   (2)  否则，调用toString()方法，返回一个原始值，转换为数字；<br>   (3)  否则，抛出类型错误异常。</p>
+</blockquote>
+</li>
+</ol>
+<p>如果对象和一个原始值比较，则转换会遵照对象到原始值的转换方式进行。<br>对于所有非日期对象来说，对象到原始值的转换基本上是对象到数字的转换（首先调用valueOf()），日期对象则使用对象到字符串的转换模式（”+”,”==”,”!=”,其他运算符与其他对象基本相同）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line"><span class="keyword">typeof</span>(now + <span class="number">1</span>);		<span class="comment">//string:"+"将日期转换为字符串</span></span><br><span class="line"><span class="keyword">typeof</span>(now - <span class="number">1</span>);		<span class="comment">//number:"-"将日期转换为数字</span></span><br><span class="line">now == now.toString(); 	<span class="comment">//true:字符串转换</span></span><br><span class="line">now &gt; (now - <span class="number">1</span>);		<span class="comment">//true:将日期转为数字</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="声明提前和作用域链"><a href="#声明提前和作用域链" class="headerlink" title="声明提前和作用域链"></a>声明提前和作用域链</h1><p><a href="https://segmentfault.com/a/1190000003935661" target="_blank" rel="noopener">click me!</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div></div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weichat_pay.png" alt="anbulang WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+            <a href="/tags/Type-Values-Variables/" rel="tag">#Type, Values & Variables</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/10/06/Algorithm-2014-10-06-Search-3/" rel="next" title="查找3">
+                <i class="fa fa-chevron-left"></i> 查找3
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/31/JavaScript-2016-07-31-4-Expressions-Operators/" rel="prev" title="Expressions and Operators">
+                Expressions and Operators <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/07/27/JavaScript-2016-07-27-3-Types-Values-and-Variables/" data-title="Types,Values and Variables" data-content data-url="http://anbulang.com/2016/07/27/JavaScript-2016-07-27-3-Types-Values-and-Variables/">
+  <div class="ds-share-inline">
+    <ul class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/27/JavaScript-2016-07-27-3-Types-Values-and-Variables/" data-title="Types,Values and Variables" data-url="http://anbulang.com/2016/07/27/JavaScript-2016-07-27-3-Types-Values-and-Variables/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="anbulang">
+          <p class="site-author-name" itemprop="name">anbulang</p>
+          <p class="site-description motion-element" itemprop="description">An ignorant coder majoring in BME, a little bit obsessive and z-turn.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/anbulang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3235300780" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/anbulang" target="_blank" title="Douban">
+                  
+                    <i class="fa fa-fw fa-dashcube"></i>
+                  
+                  Douban
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串的使用"><span class="nav-number">1.</span> <span class="nav-text">字符串的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模式匹配"><span class="nav-number">2.</span> <span class="nav-text">模式匹配</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#包装对象"><span class="nav-number">3.</span> <span class="nav-text">包装对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类型转换"><span class="nav-number">4.</span> <span class="nav-text">类型转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#转换和相等性"><span class="nav-number">5.</span> <span class="nav-text">转换和相等性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#显示类型转换"><span class="nav-number">6.</span> <span class="nav-text">显示类型转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象转换为原始值"><span class="nav-number">7.</span> <span class="nav-text">对象转换为原始值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#声明提前和作用域链"><span class="nav-number">8.</span> <span class="nav-text">声明提前和作用域链</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">anbulang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"anbulang"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>

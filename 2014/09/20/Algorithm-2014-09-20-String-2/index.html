@@ -1,0 +1,1001 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.css.network/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="单词查找树,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="单词查找树单词查找树的介绍基本性质">
+<meta name="keywords" content="单词查找树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符串2">
+<meta property="og:url" content="http://anbulang.com/2014/09/20/Algorithm-2014-09-20-String-2/index.html">
+<meta property="og:site_name" content="Focus">
+<meta property="og:description" content="单词查找树单词查找树的介绍基本性质">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://i.imgbox.com/fhaU5EnG.png">
+<meta property="og:image" content="http://i.imgbox.com/BBJSbHvQ.png">
+<meta property="og:image" content="http://i.imgbox.com/KOkvoGPo.png">
+<meta property="og:updated_time" content="2019-10-06T19:54:34.772Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="字符串2">
+<meta name="twitter:description" content="单词查找树单词查找树的介绍基本性质">
+<meta name="twitter:image" content="http://i.imgbox.com/fhaU5EnG.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 8788416,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://anbulang.com/2014/09/20/Algorithm-2014-09-20-String-2/">
+
+  <title> 字符串2 | Focus </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d8774f030bde2890ec5f975fe82a9a37";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Focus</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">focus & concentrate</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                字符串2
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-09-20T00:00:00+08:00" content="2014-09-20">
+              2014-09-20
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/09/20/Algorithm-2014-09-20-String-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/20/Algorithm-2014-09-20-String-2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="单词查找树"><a href="#单词查找树" class="headerlink" title="单词查找树"></a>单词查找树</h2><h3 id="单词查找树的介绍"><a href="#单词查找树的介绍" class="headerlink" title="单词查找树的介绍"></a>单词查找树的介绍</h3><h4 id="基本性质"><a href="#基本性质" class="headerlink" title="基本性质"></a>基本性质</h4><a id="more"></a>
+<p>单词查找树也是有链接的结点所组成的数据结构。每个结点都只可能有一个指向它的父结点（根结点除外）。每个结点都含有R条链接，其中R为字母表的大小。单词查找树一般都含有大量的空链接，因此在绘制一课单词查找树时一般会忽略空链接。每个结点也含有一个相应的值，可以是空也可以是符号表中某个键所关联的值。值为空的结点在符号表中没有对应的键，他们的存在是为了简化单词查找树中的查找操作。</p>
+<p><a href="http://imgbox.com/fhaU5EnG" target="_blank"><img src="http://i.imgbox.com/fhaU5EnG.png" alt="image host"></a></p>
+<h4 id="查找操作"><a href="#查找操作" class="headerlink" title="查找操作"></a>查找操作</h4><p>从根结点开始，首先经过的是键的首字母所对应的链接，在下一个结点中沿着第二个字符所对应的链接继续前进，以此类推。结果可能为以下三种：</p>
+<ul>
+<li>键的尾字符所对应的结点中的值非空——命中查找。</li>
+<li>键的尾字符所对应的结点中的值为空——未命中查找。</li>
+<li>查找结束于一条空链接–未命中查找。</li>
+</ul>
+<h4 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h4><p>插入操作可能遇到的两种情况：</p>
+<ul>
+<li>在到达键的尾字符之前就遇到了一个空链接。</li>
+<li>在遇到空链接之前就到达了键的尾字符。</li>
+</ul>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p><a href="http://imgbox.com/BBJSbHvQ" target="_blank"><img src="http://i.imgbox.com/BBJSbHvQ.png" alt="image host"></a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TrieST</span>&lt;<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> R = <span class="number">256</span>;</span><br><span class="line">    <span class="keyword">private</span> Node root;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Object value; <span class="comment">// Java不支持泛型数组，所以此处必须为Object</span></span><br><span class="line">        <span class="keyword">private</span> Node[] next = <span class="keyword">new</span> Node[R];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @ SuppressWarnings(<span class="string">"unchecked"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        Node node = get(root, key, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">return</span> (V)node.value;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回以node为根节点的子单词查找树中与key相关联的值</span></span><br><span class="line"><span class="comment">     * @ param node 根节点</span></span><br><span class="line"><span class="comment">     * @ param key  查找关键字</span></span><br><span class="line"><span class="comment">     * @ param d    关键字的查找位置</span></span><br><span class="line"><span class="comment">     * @ return     null或者node，其中node的value值可能为空，也可能为非空</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Node <span class="title">get</span><span class="params">(Node node, String key, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 符号表为空或查找结束于一条空链接--未命中查找。</span></span><br><span class="line">        <span class="keyword">if</span> (node == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 键的尾字符所对应的结点中的值非空——命中查找 || 键的尾字符所对应的结点中的值为空——未命中查找。</span></span><br><span class="line">        <span class="keyword">if</span> (d == key.length()) <span class="keyword">return</span> node;</span><br><span class="line">        <span class="keyword">char</span> c = key.charAt(d);</span><br><span class="line">        <span class="keyword">return</span> get(node.next[c], key, d+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(String key, V value)</span> </span>&#123;</span><br><span class="line">        root = put(root, key, value, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 单词查找树的插入操作</span></span><br><span class="line"><span class="comment">     * @ param node 根节点</span></span><br><span class="line"><span class="comment">     * @ param key  查找关键字</span></span><br><span class="line"><span class="comment">     * @ param value  键对应的值</span></span><br><span class="line"><span class="comment">     * @ param d       关键字的查找位置</span></span><br><span class="line"><span class="comment">     * @ return</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Node <span class="title">put</span><span class="params">(Node node, String key, V value, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// root为空或在到达键的尾字符之前就遇到了一个空链接。</span></span><br><span class="line">        <span class="keyword">if</span> (node == <span class="keyword">null</span>) node = <span class="keyword">new</span> Node();</span><br><span class="line">        <span class="comment">// 到达了键的尾字符。</span></span><br><span class="line">        <span class="keyword">if</span> (d == key.length()) &#123;</span><br><span class="line">            node.value = value;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">char</span> c = key.charAt(d);</span><br><span class="line">        node.next[c] = put(node.next[c], key, value, d + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> size(root);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// node.value非空表明碰到一个key</span></span><br><span class="line">        <span class="keyword">if</span> (node.value != <span class="keyword">null</span>) cnt++;</span><br><span class="line">        <span class="comment">// 遍历每一个子单词查找树</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> i = <span class="number">0</span>; i &lt; R; i++) &#123;</span><br><span class="line">            cnt += size(node.next[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="查找所有键"><a href="#查找所有键" class="headerlink" title="查找所有键"></a>查找所有键</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 遍历单词查找树</span></span><br><span class="line"><span class="comment"> * @ return</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Iterable&lt;String&gt; <span class="title">keys</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> keysWithPrefix(<span class="string">""</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 查找所有以pre为前缀的键</span></span><br><span class="line"><span class="comment"> * @ param pre 前缀</span></span><br><span class="line"><span class="comment"> * @ return queue队列</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Iterable&lt;String&gt; <span class="title">keysWithPrefix</span><span class="params">(String pre)</span> </span>&#123;</span><br><span class="line">    Queue&lt;String&gt; q = <span class="keyword">new</span> Queue&lt;&gt;();</span><br><span class="line">    collect(get(root, pre, <span class="number">0</span>), pre, q);</span><br><span class="line">    <span class="keyword">return</span> q;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 把所有以pre为前缀的键放入q中</span></span><br><span class="line"><span class="comment"> * @ param node pre对应的节点，可能为null</span></span><br><span class="line"><span class="comment"> * @ param pre</span></span><br><span class="line"><span class="comment"> * @ param q</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">collect</span><span class="params">(Node node, String pre, Queue&lt;String&gt; q)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// node为null</span></span><br><span class="line">    <span class="keyword">if</span> (node == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// node不为null且node.value不为空</span></span><br><span class="line">    <span class="keyword">if</span> (node.value != <span class="keyword">null</span>) q.enqueue(pre);</span><br><span class="line">    <span class="comment">// 遍历每一个子节点</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> i = <span class="number">0</span>; i &lt; R; i++) &#123;</span><br><span class="line">        collect(node.next[i], pre + i, q);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="通配符匹配"><a href="#通配符匹配" class="headerlink" title="通配符匹配"></a>通配符匹配</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通配符匹配，通配符只含有'.'</span></span><br><span class="line"><span class="comment"> * @ param pat 通配符</span></span><br><span class="line"><span class="comment"> * @ return 以队列的形式返回所有匹配结果</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Iterable&lt;String&gt; <span class="title">keysThatMatch</span><span class="params">(String pat)</span> </span>&#123;</span><br><span class="line">    Queue&lt;String&gt; q = <span class="keyword">new</span> Queue&lt;&gt;();</span><br><span class="line">    collect(root, <span class="string">""</span>, pat, q);</span><br><span class="line">    <span class="keyword">return</span> q;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 重载collect方法</span></span><br><span class="line"><span class="comment"> * @ param node  node可能为空，可能是匹配中的结点，可能是最后的结点但值为空，可能是最后结点且非空</span></span><br><span class="line"><span class="comment"> * @ param pre   前缀字符串，从""开始，每次添加一个字符</span></span><br><span class="line"><span class="comment"> * @ param pat   匹配字符串，可能含有'.'</span></span><br><span class="line"><span class="comment"> * @ param q     用于存放结果的队列</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">collect</span><span class="params">(Node node, String pre, String pat, Queue&lt;String&gt; q)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// node为null</span></span><br><span class="line">    <span class="keyword">if</span> (node == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// 满足匹配 </span></span><br><span class="line">    <span class="keyword">int</span> d = pre.length();   <span class="comment">// 对应匹配到pat的位置</span></span><br><span class="line">    <span class="keyword">if</span> (d == pat.length() &amp;&amp; node.value != <span class="keyword">null</span>) q.enqueue(pre);</span><br><span class="line">    <span class="comment">// 到匹配字符串末尾，但未满足匹配</span></span><br><span class="line">    <span class="keyword">if</span> (d == pat.length()) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c = <span class="number">0</span>; c &lt; R; c++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (pat.charAt(d) == <span class="string">'.'</span> || c == pat.charAt(d))</span><br><span class="line">            collect(node.next[c], pre + c, pat, q);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="最长前缀"><a href="#最长前缀" class="headerlink" title="最长前缀"></a>最长前缀</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 最长前缀，如对于“she, shells, her”, </span></span><br><span class="line"><span class="comment"> * logestPrefixOf("shell")的最长前缀为she</span></span><br><span class="line"><span class="comment"> * @ param s 带匹配字符串</span></span><br><span class="line"><span class="comment"> * @ return  匹配结果</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">longestPrefixOf</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> length = search(root, s, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> s.substring(<span class="number">0</span>, length);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 递归搜索最长前缀</span></span><br><span class="line"><span class="comment"> * @ param node</span></span><br><span class="line"><span class="comment"> * @ param s</span></span><br><span class="line"><span class="comment"> * @ param d</span></span><br><span class="line"><span class="comment"> * @ param length 用于存储匹配长度</span></span><br><span class="line"><span class="comment"> * @ return</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">search</span><span class="params">(Node node, String s, <span class="keyword">int</span> d, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// node 为空</span></span><br><span class="line">    <span class="keyword">if</span> (node == <span class="keyword">null</span>) <span class="keyword">return</span> length;</span><br><span class="line">    <span class="comment">// node值非空则更新length</span></span><br><span class="line">    <span class="keyword">if</span> (node.value != <span class="keyword">null</span>) length = d;</span><br><span class="line">    <span class="comment">// 匹配到s末尾则返回</span></span><br><span class="line">    <span class="keyword">if</span> (d == s.length()) <span class="keyword">return</span> length;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">char</span> c = s.charAt(d);</span><br><span class="line">    <span class="keyword">return</span> search(node.next[c], s, d + <span class="number">1</span>, length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h4><p>从一个单词查找树中删去一个键的第一步是找到键所对应的结点并将它的值设为空（null）。然后分下面两种情况处理：</p>
+<blockquote>
+<ol>
+<li>该结点含有一个非空的链接指向某个子结点，则不需要在进行其他操作了。</li>
+<li>该结点所有链接均为空，那就需要从单词查找树中删除该结点。</li>
+<li>1 如果父结点所有链接也为空，则继续删除它的父结点。</li>
+<li>2 如果父结点的值非空或者父结点的链接非空，则停止删除。</li>
+</ol>
+</blockquote>
+<p>在递归删除了某个结点x之后，如果该结点的值和所有的链接均为空则返回null，否者返回x。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 删除操作</span></span><br><span class="line"><span class="comment"> * @ param key</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">    root = delete(root, key, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 递归删除</span></span><br><span class="line"><span class="comment"> * @ param node</span></span><br><span class="line"><span class="comment"> * @ param key</span></span><br><span class="line"><span class="comment"> * @ param d</span></span><br><span class="line"><span class="comment"> * @ return</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> Node <span class="title">delete</span><span class="params">(Node node, String key, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// node为空</span></span><br><span class="line">    <span class="keyword">if</span> (node == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">// 找到键所对应的节点并将他的值设为null</span></span><br><span class="line">    <span class="keyword">if</span> (d == key.length()) node.value = <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">// 未找到继续查找</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">char</span> c = key.charAt(d);</span><br><span class="line">        node.next[c] = delete(node.next[c], key, d + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//在递归删除了某个结点x之后，如果该结点的值和所有的链接均为空则返回null，否者返回x。</span></span><br><span class="line">    <span class="keyword">if</span> (node.value != <span class="keyword">null</span>) <span class="keyword">return</span> node;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c = <span class="number">0</span>; c &lt; R; c++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (node.next[c] != <span class="keyword">null</span>) <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="单词查找树的性质"><a href="#单词查找树的性质" class="headerlink" title="单词查找树的性质"></a>单词查找树的性质</h3><blockquote>
+<p>单词查找树的链表结构和键的插入或删除顺序无关：对于任意给定的一组键，其单词查找树都是唯一的。</p>
+</blockquote>
+<p>这是单词查找数的一个特殊性质：其他结构的查找树的构造都不仅和键的集合有关，而且还取决于这些键的插入顺序。</p>
+<blockquote>
+<p>在单词查找树种查找一个键或是插入一个键时，访问数组的次数最多为键的长度加1.</p>
+</blockquote>
+<p>这意味着单词查找树对于命中的查找是最理想的。</p>
+<blockquote>
+<p>字母表的大小为R，在一棵由N个随机键够早的单词查找树中，未命中查找平均所需检查的节点的数量为~$log_RN$。</p>
+</blockquote>
+<p>这说明未命中的成本与键的长度无关。</p>
+<blockquote>
+<p>一棵单词查找树中的占用空间（即链接总数）在$RN$到$RNw $之间，其中$w$为键的平均长度。</p>
+</blockquote>
+<p>当所有键均较短时，链接的总数接近于$RN$；当所有键均较长时，链接的总数接近于$RNw$；因此缩小R能节省大量空间。</p>
+<h3 id="三向单词查找树"><a href="#三向单词查找树" class="headerlink" title="三向单词查找树"></a>三向单词查找树</h3><p>为了避免R向单词查找树过度的空间消耗，可以用<strong>三向单词查找树（TST）</strong>。在三向单词查找树中，每个结点都含有一个字符、三条链接和一个值。这三条链接分别对应着当前字母小于、大于和等于结点字母的所有键。三向单词查找树中字符是<strong>显式</strong>地保存在结点中的。</p>
+<p><a href="http://imgbox.com/KOkvoGPo" target="_blank"><img src="http://i.imgbox.com/KOkvoGPo.png" alt="image host"></a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TST</span>&lt;<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> Node root;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">char</span> c;</span><br><span class="line">        <span class="keyword">private</span> Node left, mid, right;</span><br><span class="line">        <span class="keyword">private</span> V value;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查找</span></span><br><span class="line"><span class="comment">     * @ param key</span></span><br><span class="line"><span class="comment">     * @ return</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        Node node = get(root, key, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//可能返回值，也可能为null </span></span><br><span class="line">        <span class="keyword">return</span> node.value;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 递归查找，类似于二叉查找树</span></span><br><span class="line"><span class="comment">     * @ param node</span></span><br><span class="line"><span class="comment">     * @ param key</span></span><br><span class="line"><span class="comment">     * @ param d</span></span><br><span class="line"><span class="comment">     * @ return</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Node <span class="title">get</span><span class="params">(Node node, String key, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">char</span> c = key.charAt(d);</span><br><span class="line">        <span class="comment">//查找的字符小于该结点</span></span><br><span class="line">        <span class="keyword">if</span> (c &lt; node.c)             <span class="keyword">return</span> get(node.left, key, d);</span><br><span class="line">        <span class="comment">//查找的字符大于该结点</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(c &gt; node.c)         <span class="keyword">return</span> get(node.right, key, d);</span><br><span class="line">        <span class="comment">//查找的字符等于该结点，但查找未结束，继续超找下一个节点</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d &lt; key.length())   <span class="keyword">return</span> get(node.mid, key, d+<span class="number">1</span>);</span><br><span class="line">        <span class="comment">//查找结束</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 插入键和值</span></span><br><span class="line"><span class="comment">     * @ param key</span></span><br><span class="line"><span class="comment">     * @ param value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(String key, V value)</span> </span>&#123;</span><br><span class="line">        root = put(root, key, value, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 插入的递归操作</span></span><br><span class="line"><span class="comment">     * @ param node</span></span><br><span class="line"><span class="comment">     * @ param key</span></span><br><span class="line"><span class="comment">     * @ param value</span></span><br><span class="line"><span class="comment">     * @ param d</span></span><br><span class="line"><span class="comment">     * @ return</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Node <span class="title">put</span><span class="params">(Node node, String key, V value, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span> c = key.charAt(d);</span><br><span class="line">        <span class="comment">//不存在则创建该结点</span></span><br><span class="line">        <span class="keyword">if</span> (node == <span class="keyword">null</span>) &#123;</span><br><span class="line">            node = <span class="keyword">new</span> Node();</span><br><span class="line">            node.c = c;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//插入的字符小于该结点</span></span><br><span class="line">        <span class="keyword">if</span> (c &lt; node.c)                 node.left = put(node.left, key, value, d);</span><br><span class="line">        <span class="comment">//插入的字符大于该结点</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (c &gt; node.c)            node.right = put(node.right, key, value, d);</span><br><span class="line">        <span class="comment">//插入的字符等于该结点，且未到键的末尾</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (d &lt; key.length() - <span class="number">1</span>)  node.mid = put(node.mid, key, value, d + <span class="number">1</span>);</span><br><span class="line">        <span class="comment">//到达键的末尾，将键所对应的值赋值给该结点</span></span><br><span class="line">        <span class="keyword">else</span>                            node.value = value;</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>三向单词查找树与三向字符串快速排序之间的对应关系与二叉查找树和快速排序以及单词查找树和高位优先的排序之间的对应关系是一样的。</p>
+<h3 id="三向单词查找树的性质"><a href="#三向单词查找树的性质" class="headerlink" title="三向单词查找树的性质"></a>三向单词查找树的性质</h3><blockquote>
+<p>由$N$个平均长度为$w$的字符串构造的三向单词查找树中的所占空间（链接总数）在$3N$到$3Nw$之间。</p>
+</blockquote>
+<p>三向单词查找树实际使用的内存空间一般都低于由每个字符三个链接得到的上界，因为有相同的前缀的键会共享树中的高层及结点。</p>
+<blockquote>
+<p> 在一棵由$N$个随机字符串构造的三向单词查找树中，查找未命中平均需要比较字符~$lnN$次。一次插入或命中的查找会比较一次被查找的键中的每个字符。</p>
+</blockquote>
+<h3 id="各种字符串查找算法的比较"><a href="#各种字符串查找算法的比较" class="headerlink" title="各种字符串查找算法的比较"></a>各种字符串查找算法的比较</h3><p>处理由大小为R的字母表构造的N个字符串（平均长度为$w$）</p>
+<table>
+<thead>
+<tr>
+<th align="left">算法（数据结构）</th>
+<th align="center">未命中查找检查的字符串的数量</th>
+<th align="center">内存使用（空间占用）</th>
+<th align="left">优点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">二叉树查找（BST)</td>
+<td align="center">$c_1(lgN)^2$</td>
+<td align="center">$64N$</td>
+<td align="left">适用于随机排列的键</td>
+</tr>
+<tr>
+<td align="left">2-3树查找（红黑树）</td>
+<td align="center">$c_2(lgN)^2$</td>
+<td align="center">$64N$</td>
+<td align="left">有性能保证</td>
+</tr>
+<tr>
+<td align="left">线性探测法（并行数组）</td>
+<td align="center">$w$</td>
+<td align="center">$32N$~$128N$</td>
+<td align="left">内置类型，缓存散列值</td>
+</tr>
+<tr>
+<td align="left">字典树查找（R向单词查找树）</td>
+<td align="center">$log_RN$</td>
+<td align="center">$(8R+56)N (8R+56)Nw$</td>
+<td align="left">适用于较短的键和较小的字母表</td>
+</tr>
+<tr>
+<td align="left">字典树查找（三向单词查找树）</td>
+<td align="center">$1.39lgN$</td>
+<td align="center">$64N$~$64Nw$</td>
+<td align="left">适用于非随机的键</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div></div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weichat_pay.png" alt="anbulang WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/单词查找树/" rel="tag">#单词查找树</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/09/20/Algorithm-2014-09-20-String-1/" rel="next" title="字符串1">
+                <i class="fa fa-chevron-left"></i> 字符串1
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/09/22/Algorithm-2014-09-22-String-3/" rel="prev" title="字符串3">
+                字符串3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2014/09/20/Algorithm-2014-09-20-String-2/" data-title="字符串2" data-content data-url="http://anbulang.com/2014/09/20/Algorithm-2014-09-20-String-2/">
+  <div class="ds-share-inline">
+    <ul class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/09/20/Algorithm-2014-09-20-String-2/" data-title="字符串2" data-url="http://anbulang.com/2014/09/20/Algorithm-2014-09-20-String-2/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="anbulang">
+          <p class="site-author-name" itemprop="name">anbulang</p>
+          <p class="site-description motion-element" itemprop="description">An ignorant coder majoring in BME, a little bit obsessive and z-turn.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/anbulang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3235300780" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/anbulang" target="_blank" title="Douban">
+                  
+                    <i class="fa fa-fw fa-dashcube"></i>
+                  
+                  Douban
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#单词查找树"><span class="nav-number">1.</span> <span class="nav-text">单词查找树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单词查找树的介绍"><span class="nav-number">1.1.</span> <span class="nav-text">单词查找树的介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本性质"><span class="nav-number">1.1.1.</span> <span class="nav-text">基本性质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找操作"><span class="nav-number">1.1.2.</span> <span class="nav-text">查找操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入操作"><span class="nav-number">1.1.3.</span> <span class="nav-text">插入操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现"><span class="nav-number">1.1.4.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找所有键"><span class="nav-number">1.1.5.</span> <span class="nav-text">查找所有键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通配符匹配"><span class="nav-number">1.1.6.</span> <span class="nav-text">通配符匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最长前缀"><span class="nav-number">1.1.7.</span> <span class="nav-text">最长前缀</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除操作"><span class="nav-number">1.1.8.</span> <span class="nav-text">删除操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单词查找树的性质"><span class="nav-number">1.2.</span> <span class="nav-text">单词查找树的性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三向单词查找树"><span class="nav-number">1.3.</span> <span class="nav-text">三向单词查找树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三向单词查找树的性质"><span class="nav-number">1.4.</span> <span class="nav-text">三向单词查找树的性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种字符串查找算法的比较"><span class="nav-number">1.5.</span> <span class="nav-text">各种字符串查找算法的比较</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">anbulang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"anbulang"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>
