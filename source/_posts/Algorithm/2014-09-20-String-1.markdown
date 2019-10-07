@@ -1,0 +1,235 @@
+---
+layout: post
+title: 字符串1
+category: Algorithm
+tags: 字符串排序
+image:
+  feature: abstract-6.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+comments: true
+date: 2014-09-20
+---
+
+字符串排序
+--------------
+
+
+### 低位优先的字符串排序(LSD)
+
+如果字符串的长度均为W(即**定长字符串**)，那就从右向左以每个位置的字符作为键，用键索引计数法将字符串排序W遍。
+<!-- more -->
+
+> 低位优先的字符串排序算法能够**稳定地**将定长字符串排序。
+
+```java
+public class LSD {
+    /**
+     * 低位优先的字符串排序
+     * @ param a 需要排序的字符串数组
+     * @ param W 字符串长度
+     */
+    public static void sort(String[] a, int W) {
+
+
+        int N = a.length;
+        int R = 256;    //ASCII码
+        String[] aux = new String[a.length];    //拷贝数组
+        // 从右往左遍历，每次按每个位置上的键排序
+        for (int i = W-1; i >= 0; i--) {
+            int[] count = new int[R + 1];   //记录用数组，多需要一个空间。初试值为0
+            // 1.统计频率
+            for (int j = 0; j < N; j++) {
+                count[a[j].charAt(i) + 1]++;
+            }
+            // 2.计算索引
+            for (int j = 0; j < R; j++) {
+                count[j + 1] += count[j];
+            }
+            // 3.元素分类
+            for (int j = 0; j < N; j++) {
+                aux[count[a[j].charAt(i)]++] = a[j];
+            }
+            // 4.原值回写
+            for (int j = 0; j < N; j++) {
+                a[j] = aux[j];
+            }
+        }
+    }
+}
+```
+
+### 高位优先的字符串排序(MSD)
+**排序策略**是先按高位键索引计数法排序，然后递归地根据子数组中的字符串的首字母将子数组排序。
+在高位优先的字符串排序算法中，要注意倒带字符串末尾的情况。在排序中合理的做法是将所有字符都已被检查过的字符串排在其他的前面。
+算法中有一个charAt方法将字符串中的字符索引转化为数组索引，越界则输出-1. 这种转换意味着字符串中的每个字符都可能产生R+1中不同的值，同时键索引计数法本来就需要一个额外的位置，所以使用代码`int count[] = new int[R + 2];`。同时，**count[]数组中的值（在统计频率、转换为索引并将数据分类之后）正式将每个字符所对应的子数组（递归地）排序时所需要的值**。
+对于较大的字母表，高位优先的排序算法虽然简单但可能会很危险——如果使用不当，可能会消耗令人无法承受的时间和空间。
+```java
+public class MSD {
+    
+    private static int R = 256;    //基数
+    private static final int M = 15;    //小数组切割的切换阈值
+    private static String[] aux;    //数组分类的辅助数组
+    
+    public static void sort(String[] a) {
+        int N = a.length;
+        aux = new String[N];
+        sort(a, 0, N-1, 0);
+    }
+    
+    private static void sort(String[] a, int lo, int hi, int d) {
+        // 小数组用插入排序,同时是递归结束条件
+        if (hi <= lo + M)   {
+            insertionSort(a, lo, hi, d);
+            return;
+        }
+        int[] count = new int[R + 2];
+        //计算频率
+        for (int i = lo; i <= hi; i++) 
+            count[charAt(a[i], d) + 2]++;
+        //频率转索引
+        for (int i = 0; i <= R; i++)
+            count[i + 1] += count[i];
+        //元素分组
+        for (int i = lo; i <= hi; i++)
+            aux[count[charAt(a[i], d) + 1]++] = a[i];
+        //元素回写
+        for (int i = lo; i <= hi; i++) 
+            a[i] = aux[i - lo];    //每次递归调用aux只用了hi-lo+1的空间
+        //递归的以每个字符为键进行排序
+        for (int r = 0; r < R; r++) 
+            sort(a, lo + count[r], lo + count[r + 1] - 1, d + 1);
+    }
+    
+    /**
+     *  插入排序，前置条件：前d个字符均相同
+     */
+    private static void insertionSort(String[] a, int lo, int hi, int d) {
+        
+        for (int i = lo; i <= hi; i++) {
+            for (int j = i; j > lo && less(a[j], a[j-1], d); j--) {
+                String temp = a[j];
+                a[j] = a[j-1];
+                a[j-1] = temp;
+            }
+        }
+    }
+    
+    private static boolean less(String a, String b, int d) {
+        return a.substring(d).compareTo(b.substring(d)) < 0;        
+    }
+    
+    /**
+     * 返回字符串对应位置d上的索引
+     * @ param str 字符串
+     * @ param d   位置d
+     * @ return 索引
+     */
+    private static int charAt(String str, int d) {
+        if (d < str.length())
+            return str.charAt(d);
+        else return -1;
+    }
+}
+```
+
+<font color="red" size="4">**[NOTE]**</font>
+
+**1. 小型子数组**
+
+小型子数组对于高位优先的字符串排序的性能至关重要。所以在`hi<=lo+W`后使用插入排序。下述代码中插入排序的效率取决于`substring(d)`方法所需的时间是否为**常数**。
+
+**2. 等值键**
+
+高位优先的字符串排序的最坏情况就是所有的键均相同。
+
+**3. 额外空间**
+
+高位优先的字符串排序使用了两个辅助数组（aux[]和count[]）
+
+> 要将给予大小为R的字母表的N个字符串排序，高位优先的字符串排序算法平均需要检查$Nlog_{R}N$个字符。
+
+---
+> 要将给予大小为R的字母表的N个字符串排序，高位优先的字符串排序算法方位数组的次数在$8N+3R$到~$7wN+3wR$之间，其中$w$是字符串的平均长度。
+
+---
+> 要将基于大小为R的字母表的N个字符串排序，最坏情况下高位优先的字符串排序算法所需的空间与$N+WR$成正比，其中$W$是最长字符串的长度。
+
+### 三向字符串快速排序
+**排序策略**根据键的首字母进行三向切分，尽在中间子数组中的下一个字符（因为键的首字母都与切分字符相等）继续递归排序。
+三项字符串快速排序能够很好地处理等值键、有较长公共前缀的键、取值范围较小的键和小数组，且只需要递归所需的隐式栈的额外空间。
+```java
+/**三向字符串快速排序**/
+public class Quick3String {
+    
+    public static void sort(String[] a) {
+        sort(a, 0, a.length-1, 0);
+    }
+    
+    /**
+     * 递归方法
+     * @ param a 待排序字符串数组
+     * @ param lo 
+     * @ param hi
+     * @ param d 字符位置
+     */
+    private static void sort(String[] a, int lo, int hi, int d) {
+        if (hi <= lo) return;
+        // 需要三个索引分别标记小于、待处理、大于v的数据
+        int lt = lo, i = lo + 1, gt = hi;
+        int v = charAt(a[lo], d);
+        while (i <= gt) {
+            // 待比较字符串
+            int w = charAt(a[i], d);
+            // 比v小
+            if (w < v) exch(a, lo++, i++);
+            // 比v大
+            else if (w > v) exch(a, i, gt--);
+            // 等于v
+            else i++;
+        }
+        // 循环结束后，字符串按第d个字符三向切分：a[lo...lt-1] < v = a[lt...gt] < a[gt+1...hi]
+        sort(a, lo, lt-1, d);
+        if (v >= 0) sort(a, lt, gt, d + 1);
+        sort(a, gt+1, hi, d);
+    }
+    
+    private static int charAt(String str, int d) {
+        if (d < str.length()) return str.charAt(d);
+        return -1;
+    }
+    
+    private static void exch(String[] a, int v, int w) {
+        String temp = a[v];
+        a[v] = a[w];
+        a[w] = temp;
+    }
+
+}
+```
+
+<font color="red" size="4">**[NOTE]**</font>
+
+**1. 随机化**
+
+和快速排序一样，最好在排序之前将数组打乱或是将第一个元素和一个随机位置的元素交换以得到一个随机的切分元素。这么做主要是为了预防数组已经有序或是接近有序的最坏情况。
+
+**2. 性能**
+
+将含有N个随机字符串的数组排序，三向字符串快速排序平均需要比较字符~$2nlnN$次。
+
+### 各种字符串排序算法的性能特点
+
+| 算法 | 是否稳定 | 原地排序 | 运行时间 | 额外空间 | 优势领域 |
+|:-----|:--------:|:--------:|:--------:|:--------:|:---------|
+|字符串的插入排序|是|是|$N$到$N^2$之间|1|小数组或是已有序的数组|
+|快速排序|否|是|$Nlog^2N$|$logN$|通用排序算法，特别适合用于空间不足的情况|
+|归并排序|是|否|$Nlog^2N$|$N$|稳定的通用排序算法|
+|三向快速排序|否|是|$N$到$NlogN$之间|$logN$|大量重复键
+|低位优先（LSD）|是|否|$NW$|$N$|较短的定长字符串|
+|高位优先（MSD)|是|否|$N$到$Nw$之间|$N+WR$|随机字符串|
+|三向字符串快速排序|否|是|$N$到$Nw$之间|$W+logN$|通用排序算法，特别适合用于含有较长公共前缀的字符串|
+
+
+其中运行时间是基于“在将基于大小为R的字母表的N个字符串排序的过程中调用charAt()方法次数的增长数量级（平均长度为$w$,最大长度为$W$）”。
+$log^2N$说明这些算法中的大多数比较都是在含有长度约为$logN$的公共前缀的字符串之间进行的。

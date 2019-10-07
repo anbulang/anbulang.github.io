@@ -1,0 +1,173 @@
+---
+layout: post
+title: 查找4
+catalog: Algorithm
+tags: 散列表 拉链法 线性探测法
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+comments: true
+date: 2014-10-06
+---
+
+## 散列函数
+
+
+ 1. 正整数
+除留余数法，选择大小为M的素数，对于任意正整数k计算k除以M的余数。
+ 2. 浮点数
+将该浮点数用二进制数表示然后在使用除留余数法。
+<!-- more -->
+ 3. 字符串
+```java
+int hash = 0;
+for (int i = 0; i < s.length(); i++)
+    hash = (R * hash + s.charAt(i)) % M;
+```
+
+如果散列值的计算很耗时，那么可以将每个键的散列值缓存起来，即在每个键中使用一个hash变量来保存它的hashCode()的返回值。
+## 基于拉链法的散列表
+将大小为M的数组中的每个元素指向一条链表，链表中的每个结点都存储了散列值为该元素的索引的键的值对。链表的平均长度为N/M.
+![enter image description here](http://algs4.cs.princeton.edu/34hash/images/separate-chaining.png)
+
+
+```java
+public class SeparateChainingHashST<K, V> {
+    private int M;  //散列表的大小
+    private SequentialSearchST<K, V>[] st;
+    
+    public SeparateChainingHashST() {
+        this(997);
+    }
+    
+    @ SuppressWarnings("unchecked")
+    public SeparateChainingHashST(int M) {
+        this.M = M;
+        st = (SequentialSearchST<K, V>[]) new SequentialSearchST[M];
+        for (int i = 0; i < M; i++) {
+            st[i] = new SequentialSearchST<>();
+        }
+    }
+    
+    private int hash(K key) {
+        return (key.hashCode() & 0x7fffffff) % M;
+    }
+    
+    public V get(K key) {
+        return st[hash(key)].get(key);
+    }
+    
+    public void put(K key, V val) {
+        st[hash(key)].put(key, val);
+    }
+
+}
+```
+其他实现见[ SeparateChainingHashST.java ](http://algs4.cs.princeton.edu/34hash/SeparateChainingHashST.java.html)
+
+> 在一张含有M条链表和N个键的散列表中，未命中查找和插入操作所需的比较次数为~N/M.
+
+## 基于线性探测法的散列表
+用大小为M的数组保存N个键值对，其中M>N。它依靠数组中的空位解决碰撞冲突。这种方法又叫做**开放地址散列表**。
+
+这样的线性探测可能会产生三种情况：
+
+- 命中，该位置的键和被查找的键相同；
+- 未命中，该位置的键为空；
+- 继续查找，该位置的键和被查找的键不同。
+
+![enter image description here](http://algs4.cs.princeton.edu/34hash/images/linear-probing.png)
+
+```java
+public class LinearProbingHashST<K, V> {
+    private static final int INIT_CAPACITY = 16;
+    
+    private int N;  //符号表中键值对的总数
+    private int M;  //线性探测表的大小
+    private K[] keys; //键
+    private V[] vals; //值
+    
+    public LinearProbingHashST() {
+        this(INIT_CAPACITY);
+    }
+    
+    @ SuppressWarnings("unchecked")
+    public LinearProbingHashST(int capacity) {
+        M = capacity;
+        keys = (K[]) new Object[M];
+        vals = (V[]) new Object[M];
+    }
+    
+    private int hash(K key) {
+        return (key.hashCode() & 0x7fffffff) % M;
+    }
+    
+    public void put(K key, V val) {
+        if (N >= M/2)   resize(2*M);    //将M加倍
+        int i;
+        for (i = hash(key); keys[i] != null; i = (i + 1) % M) {
+            if (keys[i].equals(key)) {
+                vals[i] = val;
+                return;
+            }
+        }
+        // 找到应该插入的位置
+        keys[i] = key;
+        vals[i] = val;
+        N++;
+    }
+    
+    public V get(K key) {
+        for (int i = hash(key); keys[i] != null; i = (i + 1) % M) {
+            if (keys[i].equals(key)) return vals[i];
+        }
+        return null;
+    }
+    
+    private void resize(int capacity) {
+        LinearProbingHashST<K, V> tmp = new LinearProbingHashST<>(capacity);
+        for (int i = 0; i < M; i++) {
+            if (keys[i] != null) {
+                tmp.put(keys[i], vals[i]);
+            }
+        }
+        M = capacity;
+        keys = tmp.keys;
+        vals = tmp.vals;
+    }
+    
+    public void delete(K key) {
+        if (!contains(key)) return;
+        
+        int i = hash(key);
+        while(!keys[i].equals(key)) {
+            i = (i + 1) % M;
+        }
+        keys[i] = null;
+        vals[i] = null;
+        i = (i + 1) % M;
+        while(keys[i] != null) {
+            K keyCopy = keys[i];
+            V valCopy = vals[i];
+            // 先删除该结点
+            keys[i] = null;
+            vals[i] = null;
+            N--;
+            // 重新将他们放入散列表中
+            put(keyCopy, valCopy);
+            i = (i + 1) % M;
+        }
+        N--;
+        if (N > 0 && N == M / 8) resize(M / 2);
+    }
+    
+    public boolean contains(K key) {
+        return get(key) != null;
+    }
+}
+```
+
+# 各种符号表实现的比较
+<a href="http://imgbox.com/m5Rl8axS" target="_blank"><img src="http://i.imgbox.com/m5Rl8axS.jpg" alt="image host"/></a>
+

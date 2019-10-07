@@ -1,0 +1,463 @@
+---
+layout: post
+title: 排序算法
+catalog: Algorithm
+tags: 选择排序 插入排序 希尔排序 归并排序 快速排序
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+comments: true
+date: 2014-10-04
+---
+## 初级排序算法
+
+> **排序成本模型** 在研究排序算法时，需要计算比较和交换的数量。对于不交换元素的算法，则计算访问数组的次数。
+<!-- more -->
+
+
+### 选择排序
+
+```java
+public class Selection {
+    
+    public static void sort(Comparable[] a) {
+        for(int i = 0; i < a.length; i++) {
+            int min = i;
+            for (int j = i + 1; j < a.length; j++) {
+                if (less(a[j], a[min])) min = j;
+            }
+            exch(a, i, min);            
+        }
+    }
+
+
+    
+    /**
+     * 交换位置
+     * @ param a 排序数组
+     * @ param i 索引
+     * @ param j 索引
+     */
+    private static void exch(Comparable[] a, int i, int j) {
+        Comparable temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+    
+    /**
+     * v是否小于w
+     * @ param v
+     * @ param w
+     * @ return
+     */
+    private static boolean less(Comparable v, Comparable w) {
+        return v.compareTo(w) < 0;
+    }
+}
+```
+### 插入排序
+```java
+public class Insertion {
+    
+    public static void sort(Comparable[] a) {
+        for (int i = 1; i < a.length; i++) {
+            for (int j = i; j > 0; j--) {
+                if(less(a[j], a[j-1]))  exch(a, j, j-1);
+                else break;
+            }
+        }
+    }
+    
+    public static void sortWithSentinel(Comparable[] a) {
+        int N = a.length;
+        //将数组最左端设置为最小值--哨兵
+        for (int i = N - 1; i > 0; i--) {
+            if (less(a[i], a[i - 1])) exch(a, i, i-1);
+        }
+        
+        for (int i = 2; i < N; i++) {
+            Comparable v = a[i];
+            int j = i;
+            while (less(v, a[j-1])) {
+                a[j] = a[j-1];
+                j--;
+            }
+            a[j] = v;
+        }       
+        
+    }
+    
+    /**
+     * 交换位置
+     * @ param a 排序数组
+     * @ param i 索引
+     * @ param j 索引
+     */
+    private static void exch(Comparable[] a, int i, int j) {
+        Comparable temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+    
+    /**
+     * v是否小于w
+     * @ param v
+     * @ param w
+     * @ return
+     */
+    private static boolean less(Comparable v, Comparable w) {
+        return v.compareTo(w) < 0;
+    }
+}
+```
+### 希尔排序
+希尔排序简单的改进了插入排序，交换不相邻的元素一堆数组的局部进行排序，并最终用插入排序将局部有序的数组排序。
+希尔排序的思想是使数组中任意间隔为h的元素都是有序的，这样的数组被称为h有序数组。下述算法使用了序列$ \frac{1}{2}(3^k - 1)$ ，从 N/3 开始递减至1。希尔排序更高效的原因是它权衡了子数组的规模和有序性。
+```java
+public static void sort(Comparable[] a) {
+    int N = a.length;
+    int h = 1;
+    //  采用1/2(3^k - 1)序列，即 h(n) = h(n-1) * 3 + 1;
+    while (h < N/3) h = h * 3 + 1;  // 1, 4, 13, 40......
+    while (h >= 1) {
+        //h有序数组
+        for (int i = h; i < N; i++) {
+            for (int j = i; j >= h&&less(a[j], a[j-h]); j -= h) {
+                exch(a, j, j-h);
+            }
+        }
+        h = h / 3;
+    }
+}
+```
+## 归并排序
+![归并排序](http://algs4.cs.princeton.edu/22mergesort/images/mergesort-overview.png)
+### 自顶向下
+```java
+public class Merge {
+    
+    private static Comparable[] aux;
+    
+    /**
+     * 各种排序算法
+     * @ param a 需要排序的数组
+     */
+    public static void sort(Comparable[] a) {
+        aux = new Comparable[a.length];
+        sort(a, 0, a.length - 1);
+    }
+    
+    /**
+     * 常规快速排序
+     * @ param a
+     * @ param lo
+     * @ param hi
+     */
+    private static void sort(Comparable[] a, int lo, int hi) {
+        if (lo >= hi) return;
+        int mid = (lo + hi) / 2;
+        sort(a, lo, mid);
+        sort(a, mid + 1, hi);
+        merge(a, lo, mid, hi);
+    }
+    
+    /**
+     * 将a[lo...mid]和a[mid+1...hi]归并
+     * 条件：a[lo...mid]和a[mid+1...hi]已有序
+     * @ param a
+     * @ param lo
+     * @ param mid
+     * @ param hi
+     */
+    private static void merge(Comparable[] a, int lo, int mid, int hi) {
+        // 记录左右半边起始索引
+        int i = lo, j = mid+1;
+        // 复制数组a到数组aux
+        for (int k = lo; k <= hi; k++) aux[k] = a[k];
+        // 按下列规则把aux中的数据移回a
+        for (int k = lo; k <= hi; k++) {
+            // 左半边用尽，取右半边
+            if (i > mid)            a[k] = aux[j++];
+            // 右半边用尽，取左半边
+            else if (j > hi)        a[k] = aux[i++];
+            // 右侧数据小于左侧，取右侧数据放入a数组
+            else if (less(aux[j], aux[i]))      a[k] = aux[j++];
+            // 左侧数据小于等于右侧，取左侧数据放入a数组
+            else                    a[k] = aux[i++];
+            
+        }
+    }
+}
+```
+![enter image description here](http://algs4.cs.princeton.edu/22mergesort/images/mergesortTD.png)
+> 对于长度为$N$的任意数组，自顶向下的归并排序需要$\frac{1}{2}NlgN$至$NlgN$次比较，最多需要访问数组$6NlgN$次。
+
+### 自底向上
+
+先归并微型数组然后再成对归并得到的子数组。
+![enter image description here](http://algs4.cs.princeton.edu/22mergesort/images/mergesortBU.png)
+
+```java
+public static void sort(Comparable[] a) {
+    int N = a.length;
+    aux = new Comparable[N];
+    for (int size = 1; size < N; size *= 2) {
+        for (int lo = 0; lo < N - size; lo += 2*size) {
+            merge(a, lo, lo+size-1, Math.min(lo + 2*size -1, N-1));
+        }
+    }
+}
+```
+
+> 对于长度为$N$的任意数组，自底向上的归并排序需要$\frac{1}{2}NlgN$至$NlgN$次比较，最多需要访问数组$6NlgN$次。
+
+## 快速排序
+![enter image description here](http://algs4.cs.princeton.edu/23quicksort/images/quicksort-overview.png)
+
+### 基本算法
+
+```java
+public class Quick {
+    
+    public static void sort(Comparable[] a) {
+        //StdRandom.shuffle(a);
+        sort(a, 0, a.length - 1);
+    }
+    
+    private static void sort(Comparable[] a, int lo, int hi) {
+        if(hi <= lo) return;
+        int mid = partition(a, lo, hi);
+        sort(a, lo, mid - 1);
+        sort(a, mid + 1, hi);
+    }
+    
+    private static int partition(Comparable[] a, int lo, int hi) {
+        int i = lo, j = hi + 1; // 左右扫描指针
+        Comparable val = a[lo]; // 切分元素
+        while(true) {
+            while(less(a[++i], val)) if(i >= hi) break; // 防止越界,跳出内循环
+            while(less(val, a[--j])) if(j <= lo) break; // 防止越界,跳出内循环
+            if(i >= j) break;   // 如果i>=j,则不用交换
+            exch(a, i, j);
+        }
+        exch(a, lo, j);
+        return j;
+    }
+}
+```
+
+### 三向切分的快速排序
+
+![enter image description here](http://algs4.cs.princeton.edu/23quicksort/images/partitioning3-overview.png)
+```java
+/**
+ * 三向切分的快速排序
+ * 它从左到右遍历数组一次，维护一个指针lt使得a[lo..lt-1]中的元素都小于val，
+ * 一个指针gt使得a[gt+1..hi]中的元素都大于val，一个指针i使得a[lt..i-1]
+ * 中的元素都等于val，a[i..gt]中的元素未确定。
+ * @ param a
+ * @ param lo
+ * @ param hi
+ */
+private static void sort3way(Comparable[] a, int lo, int hi) {
+    if (hi <= lo) return;
+    int lt = lo, i = lo + 1, gt = hi;
+    Comparable val = a[lo];
+    while (i <= gt) {
+        int cmp = val.compareTo(a[i]);
+        if (cmp > 0) exch(a, lt++, i++);
+        else if (cmp < 0) exch(a, i, gt--);
+        else i++;
+    }
+    sort(a, lo, lt - 1);
+    sort(a, gt + 1, hi);
+}
+```
+
+![enter image description here](http://algs4.cs.princeton.edu/23quicksort/images/partitioning3.png)
+
+## 优先队列
+
+**优先队列**：部分处理，可以删除最大（最小）元素，可插入元素
+![enter image description here](http://algs4.cs.princeton.edu/24pq/images/pq-api.png)
+
+### 堆
+
+> **定义**  当一颗二叉树的每个结点都大于等于它的两个子结点时，它被称为堆有序。
+
+完全二叉树只需要数组不需要指针就可以表示。从a[k]向上一层就令k等于k/2，向下一层则令k等于2k或2k+1。
+
+![enter image description here](http://algs4.cs.princeton.edu/24pq/images/heap-representations.png)
+
+**基于堆的优先队列:**
+
+**上浮**
+
+```java
+private void swim(int k) {
+   while (k > 1 && less(k/2, k)) {
+      exch(k, k/2);
+      k = k/2;
+   }
+}
+```
+
+![enter image description here](http://algs4.cs.princeton.edu/24pq/images/swim.png)
+
+**下沉**
+
+```java
+private void sink(int k) {
+   while (2*k <= N) {
+      int j = 2*k;
+      if (j < N && less(j, j+1)) j++;
+      if (!less(k, j)) break;
+      exch(k, j);
+      k = j;
+   }
+}
+```
+![enter image description here](http://algs4.cs.princeton.edu/24pq/images/sink.png)
+
+**插入元素** 将新元素加到数组末尾，增加堆的大小并让这个元素上浮到合适的位置。
+
+**删除最大元素** 从数组顶端删去最大元素并将数组的最后一个元素放到顶端，减小堆的大小并让这个元素下沉到合适的位置。
+
+![enter image description here](http://algs4.cs.princeton.edu/24pq/images/heap-ops.png)
+
+```java
+public class MaxPQ<K extends Comparable<K>> {
+
+    private K[] pq; // 基于堆的完全二叉树
+    private int N = 0;  // 存储于pq[1..N]中，pq[0]没有使用
+    
+    public MaxPQ(int maxN) {
+        pq = (K[]) new Comparable[maxN + 1];    // 最多存储maxN个元素
+    }
+    
+    public boolean isEmpty() {
+        return N == 0;
+    }
+    
+    public int size() {
+        return N;
+    }
+    
+    public void insert(K key) {
+        pq[++N] = key;  // pq[0]不存储元素
+        swim(N);        // 上浮
+    }
+    
+    public K delMax() {
+        K max = pq[1];  // 获取堆中的根节点，即最大元素
+        exch(1, N);     // 将其和最后一个元素交换
+        pq[N] = null;   // 将最后一个元素置为null，防止对象游离
+        N--;            // 元素个数减一
+        sink(1);        // 下沉
+        return max;
+    }
+    
+    private boolean less(int i, int j) {
+        return pq[i].compareTo(pq[j]) < 0;
+    }
+    
+    private void exch(int i, int j) {
+        K temp = pq[i];
+        pq[i] = pq[j];
+        pq[j] = temp;
+    }
+    
+    /**
+     * 上浮
+     * @ param k
+     */
+    private void swim(int k) {
+        while (k > 1 && less(k/2, k)) {
+            exch(k/2, k);
+            k = k/2;
+        }
+    }
+    
+    /**
+     * 下沉
+     * @ param k
+     */
+    private void sink(int k) {
+        while (k*2 <= N) {
+            int j = 2 * k;
+            if (j < N && less(j, j+1)) j++; //找子节点最大的那个
+            if (!less(k, j)) break;
+            exch(k, j);
+            k = j;
+        }
+    }
+}
+```
+
+> 对于一个含有$N$个元素的基于堆的优先队列，插入元素操作只需不超过$lgN+1$次比较，删除最大元素的操作需要不超过$2lgN$次比较。
+
+### 堆排序
+
+堆排序可以分为两个阶段。
+①  堆的构造阶段：将原始数组构造成堆有序，从右至左用sink()构造子堆。
+②  下沉排序阶段：从堆中按递减顺序去除所有元素并得到排序结果。
+
+```java
+public class HeapSort {
+    
+    /**
+     * 堆排序
+     */
+    public static  void sort(Comparable[] a) {
+        int N = a.length;
+        // 堆的构造阶段
+        for (int k = N/2; k > 0; k--) {
+            sink(a, k, N);
+        }
+        // 下沉排序阶段
+        while (N > 1) {
+            exch(a, 1, N--);
+            sink(a, 1, N);
+        }
+    }
+    
+    private static void sink(Comparable[] a, int k, int N) {
+        while (2*k <= N) {
+            int j = 2 * k;
+            // 找出k的两个子结点中最大的那个
+            if (j < N && less(a, j, j+1)) j++;
+            // 如果子结点小于或等于父结点，下沉结束
+            if (!less(a, k, j)) break;
+            exch(a, k, j);
+            k = j;
+        }
+    }
+    
+    /**
+     * 将索引减一，因为默认的sink等操作是基于a[1]至a[N]的
+     */
+    private static void exch(Object[] a, int i, int j) {
+        Object tmp = a[i - 1];
+        a[i - 1] = a[j - 1];
+        a[j- 1] = tmp;
+    }
+    
+    /**
+     * 将索引减一，因为默认的sink等操作是基于a[1]至a[N]的
+     */
+    private static boolean less(Comparable[] a, int v, int w) {
+        return a[v - 1].compareTo(a[w - 1]) < 0;
+    }
+
+}
+```
+
+![enter image description here](http://algs4.cs.princeton.edu/24pq/images/heapsort-trace.png)
+
+> 堆排序无法利用缓存，数组元素很少和它相邻的其他元素进行比较，因此缓存未命中的次数要远远高于大多数比较都在相邻元素间进行的算法。但是，用堆实现的优先队列能在插入和删除最大元素操作混合的动态场景中保证对数级别的运行时间。
+
+
+## 排序比较
+<a href="http://imgbox.com/FCpCmaPp" target="_blank"><img src="http://i.imgbox.com/FCpCmaPp.jpg" alt="image host"/></a>
+

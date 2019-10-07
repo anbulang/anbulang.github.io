@@ -1,0 +1,352 @@
+---
+layout: post
+title: 字符串3
+category: Algorithm
+tags: 单词查找树
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+comments: true
+date: 2014-09-22
+---
+
+## 子字符串查找
+
+
+字符串的一种基本操作就是**子字符串查找**：给定一段长为N的文本和一个长度为M的模式字符串，在文本中找到一个和该模式相符的子字符串。
+
+<a href="http://imgbox.com/HeTfwRrH" target="_blank"><img src="http://i.imgbox.com/HeTfwRrH.jpg" alt="image host"/></a>
+
+<!-- more -->
+### 暴力子字符串查找算法
+
+```java
+/**
+ * 暴力子字符串查找算法1
+ * @ param pat 模式字符串
+ * @ param txt 文本
+ * @ return
+ */
+public static int search(String pat, String txt) {
+    int M = pat.length();
+
+
+    int N = txt.length();
+    for (int i = 0; i <= N-M; i++) {
+        int j;
+        for (j = 0; j < M; j++) {
+            if (pat.charAt(j) != txt.charAt(i + j)) break;
+        }
+        //找到匹配
+        if (j == M) return i;
+    }
+    //未找到匹配
+    return N;
+}
+```
+
+> 在最坏情况下，暴力子字符串查找算法在长度为$N$的文本中查找长度为M的模式需要~$NM$次字符比较。见下图。
+
+<a href="http://imgbox.com/RCcZjjtR" target="_blank"><img src="http://i.imgbox.com/RCcZjjtR.jpg" alt="image host"/></a>
+
+还有一种暴力算法，使用了一个指针i跟踪文本，一个指针j跟踪模式。这里的i值相当于上面代码中的i+j：它指向的是文本中已经匹配过的字符序列的末端（上面代码中的i是指向这个序列的开头）。如果i和j指向的字符不匹配了，那么需要回退这两个指针的值：*将j重新指向模式的开头，将i指向本次匹配的开始位置的下一个字符*。
+
+```java
+/**
+ * 暴力子字符串查找算2
+ * @ param pat 模式字符串
+ * @ param txt 文本
+ * @ return
+ */
+public static int search2(String pat, String txt) {
+    //使用了一个指针i跟踪文本，一个指针j跟踪模式
+    int i, N = txt.length();
+    int j, M = pat.length();
+    for (i = 0, j = 0; i < N && j < M; i++) {
+        if (txt.charAt(i) == pat.charAt(j)) j++;
+        //如果i和j指向的字符不匹配了，那么需要回退这两个指针的值：
+        //将j重新指向模式的开头，将i指向本次匹配的开始位置的下一个字符
+        else { i -= j; j = 0; }
+    }
+    if (j == M) return i - j;
+    else return N;
+}
+```
+
+### Knuth-Morris-Pratt 子字符串查找算法（KMP）
+
+【**基本思想**】当出现不匹配时，就能知晓一部分文本的内容，利用这些信息避免将指针回退到所有这些已知的字符之前。
+
+#### 模式指针的回退
+
+先假设dfa[][]已知，查找算法如下所示：
+
+- pat固定不动，i每次加1，j由dfa[txt.charAt(i)][j]决定，其中i、j初始值均为0。
+- KMP不回退指针i，只回退指针j，使用数组dfa[][]来记录匹配失败时模式指针j应该回退多远。
+- 对于每个字符c，在比较了c和pat.charAt(j)之后，dfa[c][j]是与下个文本字符(i++)比较的模式字符的位置。
+- 在字符匹配时，dfa[txt.chaAt(i)][j]\(即dfa[pat.charAt(j)][j])总是j+1；在不匹配时，不仅可以知道txt.charAt(i)的字符，还可以知道正文中的前j-1个字符，它们就是模式中的前j-1个字符。
+
+<a href="http://imgbox.com/j18yfEBL" target="_blank"><img src="http://9.t.imgbox.com/j18yfEBL.jpg" alt="image host"/></a>
+
+```java
+    /**
+     * 利用确定有限状态自动机（DFA）查找子字符串
+     * @ param txt 文本
+     * @ return
+     */
+    public int search(String txt) {
+        // 模拟DFA处理文本txt时的操作
+        int i, N = txt.length();
+        int j, M = pat.length();
+        for (i = 0, j = 0; i < N && j < M; i++) {
+            j = dfa[txt.charAt(i)][j];
+        }
+        if (j == M) return i - M;
+        else return N;
+    }
+```
+
+#### DFA模拟
+
+- 通过**确定有限状态自动机(DFA)**来初始化。
+- DFA是由状态和转换组成的。模式中的每个字符对应着一个状态，每个状态中的转换只有一条是匹配转换（从j到j+1），其他都是非匹配转换（见下图）
+- 自动机每次从左向右从文本中读取一个字符并移动到一个新的状态。
+
+<a href="http://imgbox.com/rvOpp9wm" target="_blank"><img src="http://i.imgbox.com/rvOpp9wm.jpg" alt="image host"/></a>
+
+#### 构造DFA
+
+- 通过已有DFA本身构造新的DFA（通过上图可以看出，在匹配失败时每个状态对应着一个以前的状态或它本身）
+- 对于匹配失败的情况，dfa[][]的第j列对应dfa[][]的第x列 ( x < j )，其中x初试值为0，下一个值为dfa[pat.charAt(j)][x]\(因为dfa[][]中的值即表示pat的索引，也表示状态)。
+- 对于匹配成功的情况，dfa[pat.charAt(j)][j] = j+1。
+
+```java
+public class KMP {
+    
+    private String pat;
+    private int dfa[][];
+    
+    public KMP(String pat) {
+        this.pat = pat;
+        int M = pat.length();
+        int R = 256;
+        dfa = new int[R][M];
+        // 给dfa赋予初试状态
+        dfa[pat.charAt(0)][0] = 1;
+        // 循环是先列再行
+        for (int x = 0, j = 1; j < M; j++) {
+            // 复制匹配失败情况下的值
+            for (int c = 0; c < R; c++) {
+                dfa[c][j] = dfa[c][x];
+            }
+            // 更新匹配成功情况下的值
+            dfa[pat.charAt(j)][j] = j + 1;
+            
+            // 更新重启状态
+            x = dfa[pat.charAt(j)][x];
+        }
+    }
+    
+    /**
+     * 利用去顶有限状态自动机（DFA）查找子字符串
+     * @ param txt 文本
+     * @ return
+     */
+    public int search(String txt) {
+        // 模拟DFA处理文本txt时的操作
+        int i, N = txt.length();
+        int j, M = pat.length();
+        for (i = 0, j = 0; i < N && j < M; i++) {
+            j = dfa[txt.charAt(i)][j];
+        }
+        if (j == M) return i - M;
+        else return N;
+    }
+
+}
+```
+
+> 长度为$M$的模式字符串和长度为$N$的文本，KMP算法访问字符不会超过$M+N$.构造DFA所需的总时间（和空间）将于$MR$成正比。
+
+KMP算法为最坏的情况提供线性级别的运行时间保证。在实际应用中，它不比暴力算法快很多，因为极少有应用程序需要在重复性很高的文本中查找重复性很高的模式。但是它可以用**不需要在输入中回退**的特点应用在**长度不确定的输入流**中进行查找的情况中。
+
+### Boyer-Moore字符串查找算法（BM）
+
+从右向左的子字符串查找中的启发式地处理不匹配的字符：
+
+<a href="http://imgbox.com/wv6xa7XP" target="_blank"><img src="http://i.imgbox.com/wv6xa7XP.jpg" alt="image host"/></a>
+
+从右向左扫描模式字符串并将它和文本匹配。当出现不匹配的情况时，如果该字符c出现在了模式字符串中，将模式字符串右移使文本中的字符c与模式字符串中的c(最右侧)对齐；如果该字符没有出现在模式字符串中，则将模式字符串向右移动，使他刚好跳过该字符。
+
+#### 起点
+
+使用数组right[]记录字母表中的每个字符在模式中出现的最靠右的地方，如果字符在模式中不存在则表示为-1。这个值揭示了如果该字符出现在文本中且在查找时造成了一次匹配失败，应该向右跳多远。
+<a href="http://imgbox.com/83S41LPM" target="_blank"><img src="http://i.imgbox.com/83S41LPM.jpg" alt="image host"/></a>
+
+#### 子字符串查找
+
+用一个索引i在文本中从左向右移动，用另一个索引j在模式中从右向左移动。
+如果从M-1到0的所有j，txt.charAt(i+j)都和pat.charAt(j)相等，那么就找到了一个匹配。否则匹配失败，分以下三种情况：
+
+- 造成匹配失败的字符不包含在模式字符串中，将模式字符串向右移动j+1个位置（即将i增加j+1）。
+
+<a href="http://imgbox.com/Q76acWZe" target="_blank"><img src="http://i.imgbox.com/Q76acWZe.jpg" alt="image host"/></a>
+
+- 造成匹配失败的字符包含在模式字符串中，使用right[]将模式字符串和文本对齐（最右侧）。
+- 如果上面这种方式无法增大i(i < 1)，那就直接将i加1来保证模式字符串至少向右移动了一个位置。
+
+<a href="http://imgbox.com/5MRa7pel" target="_blank"><img src="http://1.t.imgbox.com/5MRa7pel.jpg" alt="image host"/></a>
+
+使用-1表示right[]数组中相应字符不包含在模式字符串中，这个约定能够将前两种情况合并（将i增大j-right[txt.charAt(i+j)]）。
+
+```java
+public class BoyerMoore {
+    private String pat;
+    // 数组right[]存储字母表中的每个字符在模式中的位置
+    private int right[];
+    
+    public BoyerMoore(String pat) {
+        this.pat = pat;
+        int M = pat.length();
+        int R = 256;
+        right = new int[R];
+        // 先将所有值初始化为-1
+        for (int i = 0; i < R; i++) right[i] = -1;
+        // 更新模式中的字母的位置
+        for (int j = 0; j < M; j++) right[pat.charAt(j)] = j;
+    }
+    
+    public int search(String txt) {
+        int i = 0, N = txt.length();
+        int M = pat.length();
+        int skip;
+        while (i <= N - M) { // 注意i的范围
+            skip = 0;
+            for (int j = M-1; j >= 0; j--) {
+                // 出现不匹配
+                if (txt.charAt(i + j) != pat.charAt(j)) {
+                    skip = j - right[txt.charAt(i + j)];
+                    // 第三种情况
+                    if (skip < 1) skip = 1;
+                    break;
+                }
+            }
+            // 找到匹配
+            if (skip == 0) return i;
+            
+            i += skip;          
+        }
+        return N;
+    }
+}
+```
+
+> 在一般情况下，对于长度为$N$的文本和长度为$M$的模式字符串，使用BM算法需要~$N/M$次字符比较。
+### Rabin-Karp指纹字符串查找算法（RK）
+
+这是一种基于散列的字符串查找算法。
+
+#### 计算散列函数
+
+```java
+    public long hash(String key, int M) {
+        long hash = 0;
+        for (int i = 0; i < M; i++) {
+            hash = (hash * R + key.charAt(i)) % Q;
+        }
+        return hash;
+    }
+```
+
+<a href="http://imgbox.com/yIIHrTwc" target="_blank"><img src="http://i.imgbox.com/yIIHrTwc.jpg" alt="image host"/></a>
+
+#### 关键思想
+
+RK算法的基础是对于所有位置i，高效计算文本中i+1位置的子字符串散列值。
+用 $t_i$ 表示txt.charAt(i)，那么文本txt中起始于i的含有M个字符的子字符串所对应的数为：
+
+$$x_i=t_iR^{M-1}+t_{i+1}R^{M-2}+.......+t_{i+M-1}R^{0}$$
+
+假设已知$h(x_i)=x_i mod Q$.将模式字符串右移一位即等价于将$x_i$替换为：
+
+$$x_{i+1}=(x_i-t_iR^{M-1})R+t_{i+m}$$
+
+取余操作的一个基本性质是**如果在每次算数操作之后都将结果除以Q并取余，这等价于在完成了所有算数操作之后再将最后的结果除以Q并取余**。
+
+#### 实现
+
+```java
+import java.math.BigInteger;
+import java.util.Random;
+
+
+public class RabinKarp {
+    private String pat;     // 模式字符串（仅拉斯维加斯算法需要）
+    private long patHash;   // 模式字符串hash值
+    private int M;          // 模式字符串的长度
+    private int R = 256;    // 字符表的大小
+    private long Q;         // 一个很大的素数
+    private long RM;        // R^(M-1) % Q
+    
+    public RabinKarp(String pat) {
+        this.pat = pat;
+        M = pat.length();
+        patHash = hash(pat, M);
+        Q = longRandomPrime();
+        RM = 1;
+        for (int i = 1; i < M; i++) {
+            RM = (R * RM) % Q;
+        }
+    }
+    
+    public long hash(String key, int M) {
+        long hash = 0;
+        for (int i = 0; i < M; i++) {
+            hash = (hash * R + key.charAt(i)) % Q;
+        }
+        return hash;
+    }
+    
+    /**
+     * 返回一个很大的素数
+     * @ return
+     */
+    private long longRandomPrime() {
+        BigInteger prime = new BigInteger(31, new Random());
+        return prime.longValue();
+    }
+    
+    
+    public int search(String txt) {
+        int N = txt.length();
+        long txtHash = hash(txt, M);
+        // 一开始就匹配成功
+        if (txtHash == patHash && check(0)) return 0;
+        for (int i = M; i < N; i++) {
+            // 在计算中额外加上了一个Q来保证所有的数为正数
+            txtHash = (txtHash + Q * txt.charAt(i-M) % Q) % Q;
+            txtHash = (txtHash * R + txt.charAt(i)) % Q;
+            if (txtHash == patHash) 
+                if (check(i-M+1)) 
+                    return i - M + 1; // 找到匹配
+        }
+        return N;
+    }
+    
+    private boolean check(int i) { 
+        return true;    // 拉斯维加斯算法在这里实现
+    }
+}
+```
+
+#### 验证正确性
+
+- **蒙特卡洛法**：将散列表的“规模”Q设为特别大的值，因为我们并不会真的构造一张散列表而只是希望用模式字符串验证是否会产生冲突。例如当取一个大于$10^{20}$的long型值，使得产生冲突的概率小于$10^{-20}$。
+- **拉斯维加斯法**：对于冲突的字符串检查匹配，能够保证正确性，但速度很慢。
+
+> RK算法的运行时间是线性级别的。
+
+### 各种子字符串查找算法的比较
+
+<a href="http://imgbox.com/NCjaoV3h" target="_blank"><img src="http://i.imgbox.com/NCjaoV3h.jpg" alt="image host"/></a>

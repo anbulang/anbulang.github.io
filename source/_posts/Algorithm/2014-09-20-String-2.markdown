@@ -1,0 +1,409 @@
+---
+layout: post
+title: 字符串2
+category: Algorithm
+tags: 单词查找树
+image:
+  feature: abstract-3.jpg
+  credit: dargadgetz
+  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+comments: true
+date: 2014-09-20
+---
+
+##  单词查找树
+
+
+###  单词查找树的介绍
+
+####  基本性质
+
+<!-- more -->
+单词查找树也是有链接的结点所组成的数据结构。每个结点都只可能有一个指向它的父结点（根结点除外）。每个结点都含有R条链接，其中R为字母表的大小。单词查找树一般都含有大量的空链接，因此在绘制一课单词查找树时一般会忽略空链接。每个结点也含有一个相应的值，可以是空也可以是符号表中某个键所关联的值。值为空的结点在符号表中没有对应的键，他们的存在是为了简化单词查找树中的查找操作。
+
+<a href="http://imgbox.com/fhaU5EnG" target="_blank"><img src="http://i.imgbox.com/fhaU5EnG.png" alt="image host"/></a>
+
+#### 查找操作
+
+从根结点开始，首先经过的是键的首字母所对应的链接，在下一个结点中沿着第二个字符所对应的链接继续前进，以此类推。结果可能为以下三种：
+
+- 键的尾字符所对应的结点中的值非空——命中查找。
+- 键的尾字符所对应的结点中的值为空——未命中查找。
+- 查找结束于一条空链接--未命中查找。
+
+
+
+#### 插入操作
+
+插入操作可能遇到的两种情况：
+
+- 在到达键的尾字符之前就遇到了一个空链接。
+- 在遇到空链接之前就到达了键的尾字符。
+
+#### 代码实现
+
+<a href="http://imgbox.com/BBJSbHvQ" target="_blank"><img src="http://i.imgbox.com/BBJSbHvQ.png" alt="image host"/></a>
+
+```java
+public class TrieST<V> {
+
+    private static int R = 256;
+    private Node root;
+
+    private static class Node {
+        private Object value; // Java不支持泛型数组，所以此处必须为Object
+        private Node[] next = new Node[R];
+    }
+    
+    @ SuppressWarnings("unchecked")
+    public V get(String key) {
+        Node node = get(root, key, 0);
+        if (node == null) return null;
+        return (V)node.value;
+    }
+    
+    /**
+     * 返回以node为根节点的子单词查找树中与key相关联的值
+     * @ param node 根节点
+     * @ param key  查找关键字
+     * @ param d    关键字的查找位置
+     * @ return     null或者node，其中node的value值可能为空，也可能为非空
+     */
+    private Node get(Node node, String key, int d) {
+        // 符号表为空或查找结束于一条空链接--未命中查找。
+        if (node == null) return null;
+        // 键的尾字符所对应的结点中的值非空——命中查找 || 键的尾字符所对应的结点中的值为空——未命中查找。
+        if (d == key.length()) return node;
+        char c = key.charAt(d);
+        return get(node.next[c], key, d+1);
+    }
+    
+    public void put(String key, V value) {
+        root = put(root, key, value, 0);
+    }
+    
+    /**
+     * 单词查找树的插入操作
+     * @ param node 根节点
+     * @ param key  查找关键字
+     * @ param value  键对应的值
+     * @ param d       关键字的查找位置
+     * @ return
+     */
+    private Node put(Node node, String key, V value, int d) {
+        // root为空或在到达键的尾字符之前就遇到了一个空链接。
+        if (node == null) node = new Node();
+        // 到达了键的尾字符。
+        if (d == key.length()) {
+            node.value = value;
+            return node;
+        }
+        char c = key.charAt(d);
+        node.next[c] = put(node.next[c], key, value, d + 1);
+        return node;
+    }
+    
+    public int size() {
+        return size(root);
+    }
+    
+    private int size(Node node) {
+        if (node == null) return 0;
+        int cnt = 0;
+        // node.value非空表明碰到一个key
+        if (node.value != null) cnt++;
+        // 遍历每一个子单词查找树
+        for (char i = 0; i < R; i++) {
+            cnt += size(node.next[i]);
+        }
+        return cnt;
+    }
+
+}
+```
+
+#### 查找所有键
+
+```java
+    /**
+     * 遍历单词查找树
+     * @ return
+     */
+    public Iterable<String> keys() {
+        return keysWithPrefix("");
+    }
+
+    /**
+     * 查找所有以pre为前缀的键
+     * @ param pre 前缀
+     * @ return queue队列
+     */
+    public Iterable<String> keysWithPrefix(String pre) {
+        Queue<String> q = new Queue<>();
+        collect(get(root, pre, 0), pre, q);
+        return q;
+    }
+    
+    /**
+     * 把所有以pre为前缀的键放入q中
+     * @ param node pre对应的节点，可能为null
+     * @ param pre
+     * @ param q
+     */
+    private void collect(Node node, String pre, Queue<String> q) {
+        // node为null
+        if (node == null) return;
+        // node不为null且node.value不为空
+        if (node.value != null) q.enqueue(pre);
+        // 遍历每一个子节点
+        for (char i = 0; i < R; i++) {
+            collect(node.next[i], pre + i, q);
+        }
+    }
+```
+
+#### 通配符匹配
+
+```java
+    /**
+     * 通配符匹配，通配符只含有'.'
+     * @ param pat 通配符
+     * @ return 以队列的形式返回所有匹配结果
+     */
+    public Iterable<String> keysThatMatch(String pat) {
+        Queue<String> q = new Queue<>();
+        collect(root, "", pat, q);
+        return q;
+    }
+    
+    /**
+     * 重载collect方法
+     * @ param node  node可能为空，可能是匹配中的结点，可能是最后的结点但值为空，可能是最后结点且非空
+     * @ param pre   前缀字符串，从""开始，每次添加一个字符
+     * @ param pat   匹配字符串，可能含有'.'
+     * @ param q     用于存放结果的队列
+     */
+    private void collect(Node node, String pre, String pat, Queue<String> q) {
+        // node为null
+        if (node == null) return;
+        // 满足匹配 
+        int d = pre.length();   // 对应匹配到pat的位置
+        if (d == pat.length() && node.value != null) q.enqueue(pre);
+        // 到匹配字符串末尾，但未满足匹配
+        if (d == pat.length()) return;
+        
+        for (char c = 0; c < R; c++) {
+            if (pat.charAt(d) == '.' || c == pat.charAt(d))
+                collect(node.next[c], pre + c, pat, q);
+        }
+    }
+```
+
+#### 最长前缀
+
+```java
+    /**
+     * 最长前缀，如对于“she, shells, her”, 
+     * logestPrefixOf("shell")的最长前缀为she
+     * @ param s 带匹配字符串
+     * @ return  匹配结果
+     */
+    public String longestPrefixOf(String s) {
+        int length = search(root, s, 0, 0);
+        return s.substring(0, length);
+    }
+    
+    /**
+     * 递归搜索最长前缀
+     * @ param node
+     * @ param s
+     * @ param d
+     * @ param length 用于存储匹配长度
+     * @ return
+     */
+    private int search(Node node, String s, int d, int length) {
+        // node 为空
+        if (node == null) return length;
+        // node值非空则更新length
+        if (node.value != null) length = d;
+        // 匹配到s末尾则返回
+        if (d == s.length()) return length;
+        
+        char c = s.charAt(d);
+        return search(node.next[c], s, d + 1, length);
+    }
+```
+
+#### 删除操作
+
+从一个单词查找树中删去一个键的第一步是找到键所对应的结点并将它的值设为空（null）。然后分下面两种情况处理：
+
+>1. 该结点含有一个非空的链接指向某个子结点，则不需要在进行其他操作了。
+>2. 该结点所有链接均为空，那就需要从单词查找树中删除该结点。
+>2.1 如果父结点所有链接也为空，则继续删除它的父结点。
+>2.2 如果父结点的值非空或者父结点的链接非空，则停止删除。
+
+在递归删除了某个结点x之后，如果该结点的值和所有的链接均为空则返回null，否者返回x。
+
+```java
+    /**
+     * 删除操作
+     * @ param key
+     */
+    public void delete(String key) {
+        root = delete(root, key, 0);
+    }
+    
+    /**
+     * 递归删除
+     * @ param node
+     * @ param key
+     * @ param d
+     * @ return
+     */
+    private Node delete(Node node, String key, int d) {
+        // node为空
+        if (node == null) return null;
+        // 找到键所对应的节点并将他的值设为null
+        if (d == key.length()) node.value = null;
+        // 未找到继续查找
+        else {
+            char c = key.charAt(d);
+            node.next[c] = delete(node.next[c], key, d + 1);
+        }
+        
+        //在递归删除了某个结点x之后，如果该结点的值和所有的链接均为空则返回null，否者返回x。
+        if (node.value != null) return node;
+        for (char c = 0; c < R; c++) {
+            if (node.next[c] != null) return node;
+        }
+        return null;
+    }
+```
+
+### 单词查找树的性质
+
+> 单词查找树的链表结构和键的插入或删除顺序无关：对于任意给定的一组键，其单词查找树都是唯一的。
+
+这是单词查找数的一个特殊性质：其他结构的查找树的构造都不仅和键的集合有关，而且还取决于这些键的插入顺序。
+
+> 在单词查找树种查找一个键或是插入一个键时，访问数组的次数最多为键的长度加1.
+
+这意味着单词查找树对于命中的查找是最理想的。
+
+> 字母表的大小为R，在一棵由N个随机键够早的单词查找树中，未命中查找平均所需检查的节点的数量为~$log_RN$。
+
+这说明未命中的成本与键的长度无关。
+
+> 一棵单词查找树中的占用空间（即链接总数）在$RN$到$RNw $之间，其中$w$为键的平均长度。
+
+当所有键均较短时，链接的总数接近于$RN$；当所有键均较长时，链接的总数接近于$RNw$；因此缩小R能节省大量空间。
+
+### 三向单词查找树
+
+为了避免R向单词查找树过度的空间消耗，可以用**三向单词查找树（TST）**。在三向单词查找树中，每个结点都含有一个字符、三条链接和一个值。这三条链接分别对应着当前字母小于、大于和等于结点字母的所有键。三向单词查找树中字符是**显式**地保存在结点中的。
+
+<a href="http://imgbox.com/KOkvoGPo" target="_blank"><img src="http://i.imgbox.com/KOkvoGPo.png" alt="image host"/></a>
+
+```java
+public class TST<V> {
+    
+    private Node root;
+    
+    private class Node {
+        private char c;
+        private Node left, mid, right;
+        private V value;
+    }
+    
+    /**
+     * 查找
+     * @ param key
+     * @ return
+     */
+    public V get(String key) {
+        Node node = get(root, key, 0);
+        if (node == null) return null;
+        //可能返回值，也可能为null 
+        return node.value;
+    }
+    
+    /**
+     * 递归查找，类似于二叉查找树
+     * @ param node
+     * @ param key
+     * @ param d
+     * @ return
+     */
+    private Node get(Node node, String key, int d) {
+        if (node == null) return null;
+        char c = key.charAt(d);
+        //查找的字符小于该结点
+        if (c < node.c)             return get(node.left, key, d);
+        //查找的字符大于该结点
+        else if(c > node.c)         return get(node.right, key, d);
+        //查找的字符等于该结点，但查找未结束，继续超找下一个节点
+        else if(d < key.length())   return get(node.mid, key, d+1);
+        //查找结束
+        else return node;
+    }
+    
+    /**
+     * 插入键和值
+     * @ param key
+     * @ param value
+     */
+    public void put(String key, V value) {
+        root = put(root, key, value, 0);
+    }
+    
+    /**
+     * 插入的递归操作
+     * @ param node
+     * @ param key
+     * @ param value
+     * @ param d
+     * @ return
+     */
+    private Node put(Node node, String key, V value, int d) {
+        char c = key.charAt(d);
+        //不存在则创建该结点
+        if (node == null) {
+            node = new Node();
+            node.c = c;
+        }
+        //插入的字符小于该结点
+        if (c < node.c)                 node.left = put(node.left, key, value, d);
+        //插入的字符大于该结点
+        else if (c > node.c)            node.right = put(node.right, key, value, d);
+        //插入的字符等于该结点，且未到键的末尾
+        else if (d < key.length() - 1)  node.mid = put(node.mid, key, value, d + 1);
+        //到达键的末尾，将键所对应的值赋值给该结点
+        else                            node.value = value;
+        return node;
+    }
+
+}
+```
+
+三向单词查找树与三向字符串快速排序之间的对应关系与二叉查找树和快速排序以及单词查找树和高位优先的排序之间的对应关系是一样的。
+
+### 三向单词查找树的性质
+
+> 由$N$个平均长度为$w$的字符串构造的三向单词查找树中的所占空间（链接总数）在$3N$到$3Nw$之间。
+
+三向单词查找树实际使用的内存空间一般都低于由每个字符三个链接得到的上界，因为有相同的前缀的键会共享树中的高层及结点。
+
+>  在一棵由$N$个随机字符串构造的三向单词查找树中，查找未命中平均需要比较字符~$lnN$次。一次插入或命中的查找会比较一次被查找的键中的每个字符。
+
+### 各种字符串查找算法的比较
+
+处理由大小为R的字母表构造的N个字符串（平均长度为$w$）
+
+| 算法（数据结构）             | 未命中查找检查的字符串的数量 | 内存使用（空间占用） | 优点                         |
+| :--------------------------- | :--------------------------: | :------------------: | :--------------------------- |
+| 二叉树查找（BST)             |         $c_1(lgN)^2$         |        $64N$         | 适用于随机排列的键           |
+| 2-3树查找（红黑树）          |         $c_2(lgN)^2$         |        $64N$         | 有性能保证                   |
+| 线性探测法（并行数组）       |             $w$              |     $32N$~$128N$     | 内置类型，缓存散列值         |
+| 字典树查找（R向单词查找树）  |           $log_RN$           | $(8R+56)N (8R+56)Nw$ | 适用于较短的键和较小的字母表 |
+| 字典树查找（三向单词查找树） |          $1.39lgN$           |     $64N$~$64Nw$     | 适用于非随机的键             |
