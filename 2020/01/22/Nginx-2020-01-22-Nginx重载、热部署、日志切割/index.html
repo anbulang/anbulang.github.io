@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="重载 热部署 日志切割,">
 
 
 
@@ -102,16 +102,18 @@
 
 
 
-<meta name="description" content="An ignorant coder majoring in BME, a little bit obsessive and z-turn.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Focus">
-<meta property="og:url" content="http://anbulang.com/tags/Expressions-and-Operators/index.html">
+<meta name="description" content="Nginx重载、热部署、日志切割配置文件重载1sudo nginx -s reload  nginx升级热部署 备份原二进制文件  1sudo cp nginx nginx.old   把新编译生成的二进制文件复制到nginx安装目录中的sbin目录下  1sudo cp -r ./nginx  /usr/local/nginx/sbin/ -f   查看nginx进程号，当前master进程号1">
+<meta name="keywords" content="重载 热部署 日志切割">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx重载、热部署、日志切割">
+<meta property="og:url" content="http://anbulang.com/2020/01/22/Nginx-2020-01-22-Nginx重载、热部署、日志切割/index.html">
 <meta property="og:site_name" content="Focus">
-<meta property="og:description" content="An ignorant coder majoring in BME, a little bit obsessive and z-turn.">
+<meta property="og:description" content="Nginx重载、热部署、日志切割配置文件重载1sudo nginx -s reload  nginx升级热部署 备份原二进制文件  1sudo cp nginx nginx.old   把新编译生成的二进制文件复制到nginx安装目录中的sbin目录下  1sudo cp -r ./nginx  /usr/local/nginx/sbin/ -f   查看nginx进程号，当前master进程号1">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-01-22T13:33:48.483Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Focus">
-<meta name="twitter:description" content="An ignorant coder majoring in BME, a little bit obsessive and z-turn.">
+<meta name="twitter:title" content="Nginx重载、热部署、日志切割">
+<meta name="twitter:description" content="Nginx重载、热部署、日志切割配置文件重载1sudo nginx -s reload  nginx升级热部署 备份原二进制文件  1sudo cp nginx nginx.old   把新编译生成的二进制文件复制到nginx安装目录中的sbin目录下  1sudo cp -r ./nginx  /usr/local/nginx/sbin/ -f   查看nginx进程号，当前master进程号1">
 
 
 
@@ -132,9 +134,9 @@
 
 
 
-  <link rel="canonical" href="http://anbulang.com/tags/Expressions-and-Operators/">
+  <link rel="canonical" href="http://anbulang.com/2020/01/22/Nginx-2020-01-22-Nginx重载、热部署、日志切割/">
 
-  <title> 标签: Expressions and Operators | Focus </title>
+  <title> Nginx重载、热部署、日志切割 | Focus </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -165,7 +167,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -276,44 +278,217 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2>
-        Expressions and Operators
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Nginx重载、热部署、日志切割
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2020-01-22T15:33:06+08:00" content="2020-01-22">
+              2020-01-22
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">Nginx</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2020/01/22/Nginx-2020-01-22-Nginx重载、热部署、日志切割/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2020/01/22/Nginx-2020-01-22-Nginx重载、热部署、日志切割/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h2 id="Nginx重载、热部署、日志切割"><a href="#Nginx重载、热部署、日志切割" class="headerlink" title="Nginx重载、热部署、日志切割"></a>Nginx重载、热部署、日志切割</h2><h3 id="配置文件重载"><a href="#配置文件重载" class="headerlink" title="配置文件重载"></a>配置文件重载</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -s reload</span><br></pre></td></tr></table></figure>
 
-      <h1 class="post-title">
+<h3 id="nginx升级热部署"><a href="#nginx升级热部署" class="headerlink" title="nginx升级热部署"></a>nginx升级热部署</h3><ol>
+<li>备份原二进制文件</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp nginx nginx.old</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>把新编译生成的二进制文件复制到nginx安装目录中的sbin目录下</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp -r ./nginx  /usr/local/nginx/sbin/ -f</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>查看nginx进程号，当前master进程号<code>1334</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep nginx</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>向master进程发送USR2信号，通知nginx进行热部署</li>
+</ol>
+<blockquote>
+<p>给nginx发送USR2信号后，nginx会将logs/nginx.pid文件重命名为nginx.pid.oldbin，然后用新的可执行文件启动一个新的nginx主进程和对应的工作进程，并新建一个新的nginx.pid保存新的主进程号。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kill -USR2 1334</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>优雅关闭所有的老Worker进程，老的Master进程还会存在，可通过reload命令重新拉起worker进程，用来版本回退。</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kill -WINCH 1334</span><br></pre></td></tr></table></figure>
+
+<h3 id="nginx日志切割"><a href="#nginx日志切割" class="headerlink" title="nginx日志切割"></a>nginx日志切割</h3><ol>
+<li>备份原日志</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mv access.log access.log.bak</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>向Nginx主进程发送USR1信号。USR1信号是重新打开日志文件，等同于<code>nginx -s reopen</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kill -USR1 $(cat /usr/local/nginx/logs/nginx.pid)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/07/31/JavaScript-2016-07-31-4-Expressions-Operators/" itemprop="url">
-              
-                <span itemprop="name">Expressions and Operators</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div></div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weichat_pay.png" alt="anbulang WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2016-07-31T01:07:49+08:00" content="2016-07-31">
-          07-31
-        </time>
-      </div>
 
-    </header>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/重载-热部署-日志切割/" rel="tag">#重载 热部署 日志切割</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/01/JavaScript-2016-08-01-6-Objects/" rel="next" title="Objects">
+                <i class="fa fa-chevron-left"></i> Objects
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2020/01/22/Nginx-2020-01-22-Nginx重载、热部署、日志切割/" data-title="Nginx重载、热部署、日志切割" data-content data-url="http://anbulang.com/2020/01/22/Nginx-2020-01-22-Nginx重载、热部署、日志切割/">
+  <div class="ds-share-inline">
+    <ul class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -321,6 +496,13 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2020/01/22/Nginx-2020-01-22-Nginx重载、热部署、日志切割/" data-title="Nginx重载、热部署、日志切割" data-url="http://anbulang.com/2020/01/22/Nginx-2020-01-22-Nginx重载、热部署、日志切割/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -340,8 +522,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="anbulang">
           <p class="site-author-name" itemprop="name">anbulang</p>
@@ -418,6 +609,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx重载、热部署、日志切割"><span class="nav-number">1.</span> <span class="nav-text">Nginx重载、热部署、日志切割</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件重载"><span class="nav-number">1.1.</span> <span class="nav-text">配置文件重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx升级热部署"><span class="nav-number">1.2.</span> <span class="nav-text">nginx升级热部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx日志切割"><span class="nav-number">1.3.</span> <span class="nav-text">nginx日志切割</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -521,6 +723,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

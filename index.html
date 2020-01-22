@@ -300,6 +300,163 @@
             
               
                 
+                <a class="post-title-link" href="/2020/01/22/Nginx-2020-01-22-Nginx重载、热部署、日志切割/" itemprop="url">
+                  Nginx重载、热部署、日志切割
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2020-01-22T15:33:06+08:00" content="2020-01-22">
+              2020-01-22
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">Nginx</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2020/01/22/Nginx-2020-01-22-Nginx重载、热部署、日志切割/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2020/01/22/Nginx-2020-01-22-Nginx重载、热部署、日志切割/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Nginx重载、热部署、日志切割"><a href="#Nginx重载、热部署、日志切割" class="headerlink" title="Nginx重载、热部署、日志切割"></a>Nginx重载、热部署、日志切割</h2><h3 id="配置文件重载"><a href="#配置文件重载" class="headerlink" title="配置文件重载"></a>配置文件重载</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -s reload</span><br></pre></td></tr></table></figure>
+
+<h3 id="nginx升级热部署"><a href="#nginx升级热部署" class="headerlink" title="nginx升级热部署"></a>nginx升级热部署</h3><ol>
+<li>备份原二进制文件</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp nginx nginx.old</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>把新编译生成的二进制文件复制到nginx安装目录中的sbin目录下</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp -r ./nginx  /usr/local/nginx/sbin/ -f</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>查看nginx进程号，当前master进程号<code>1334</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep nginx</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>向master进程发送USR2信号，通知nginx进行热部署</li>
+</ol>
+<blockquote>
+<p>给nginx发送USR2信号后，nginx会将logs/nginx.pid文件重命名为nginx.pid.oldbin，然后用新的可执行文件启动一个新的nginx主进程和对应的工作进程，并新建一个新的nginx.pid保存新的主进程号。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kill -USR2 1334</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>优雅关闭所有的老Worker进程，老的Master进程还会存在，可通过reload命令重新拉起worker进程，用来版本回退。</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kill -WINCH 1334</span><br></pre></td></tr></table></figure>
+
+<h3 id="nginx日志切割"><a href="#nginx日志切割" class="headerlink" title="nginx日志切割"></a>nginx日志切割</h3><ol>
+<li>备份原日志</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mv access.log access.log.bak</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>向Nginx主进程发送USR1信号。USR1信号是重新打开日志文件，等同于<code>nginx -s reopen</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kill -USR1 $(cat /usr/local/nginx/logs/nginx.pid)</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/01/JavaScript-2016-08-01-6-Objects/" itemprop="url">
                   Objects
                 </a>
@@ -775,111 +932,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/10/06/Algorithm-2014-10-06-Search-4/" itemprop="url">
-                  查找4
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-10-06T00:00:00+08:00" content="2014-10-06">
-              2014-10-06
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/10/06/Algorithm-2014-10-06-Search-4/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/06/Algorithm-2014-10-06-Search-4/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="散列函数"><a href="#散列函数" class="headerlink" title="散列函数"></a>散列函数</h2><ol>
-<li>正整数<br>除留余数法，选择大小为M的素数，对于任意正整数k计算k除以M的余数。</li>
-<li>浮点数<br>将该浮点数用二进制数表示然后在使用除留余数法。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/10/06/Algorithm-2014-10-06-Search-4/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </li></ol></div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -923,7 +975,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -931,7 +983,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -940,7 +992,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1006,7 +1058,7 @@
         <div class="copyright">
   
   &copy;  2014 - 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
