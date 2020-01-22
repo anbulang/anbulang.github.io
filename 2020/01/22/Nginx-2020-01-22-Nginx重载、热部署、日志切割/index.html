@@ -102,18 +102,18 @@
 
 
 
-<meta name="description" content="Nginx重载、热部署、日志切割配置文件重载1sudo nginx -s reload  nginx升级热部署 备份原二进制文件  1sudo cp nginx nginx.old   把新编译生成的二进制文件复制到nginx安装目录中的sbin目录下  1sudo cp -r ./nginx  /usr/local/nginx/sbin/ -f   查看nginx进程号，当前master进程号1">
+<meta name="description" content="配置文件重载1sudo nginx -s reload  nginx升级热部署 备份原二进制文件  1sudo cp nginx nginx.old   把新编译生成的二进制文件复制到nginx安装目录中的sbin目录下  1sudo cp -r ./nginx  /usr/local/nginx/sbin/ -f   查看nginx进程号，当前master进程号1334  1ps -ef | g">
 <meta name="keywords" content="重载 热部署 日志切割">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx重载、热部署、日志切割">
 <meta property="og:url" content="http://anbulang.com/2020/01/22/Nginx-2020-01-22-Nginx重载、热部署、日志切割/index.html">
 <meta property="og:site_name" content="Focus">
-<meta property="og:description" content="Nginx重载、热部署、日志切割配置文件重载1sudo nginx -s reload  nginx升级热部署 备份原二进制文件  1sudo cp nginx nginx.old   把新编译生成的二进制文件复制到nginx安装目录中的sbin目录下  1sudo cp -r ./nginx  /usr/local/nginx/sbin/ -f   查看nginx进程号，当前master进程号1">
+<meta property="og:description" content="配置文件重载1sudo nginx -s reload  nginx升级热部署 备份原二进制文件  1sudo cp nginx nginx.old   把新编译生成的二进制文件复制到nginx安装目录中的sbin目录下  1sudo cp -r ./nginx  /usr/local/nginx/sbin/ -f   查看nginx进程号，当前master进程号1334  1ps -ef | g">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-01-22T13:33:48.483Z">
+<meta property="og:updated_time" content="2020-01-22T13:40:43.568Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx重载、热部署、日志切割">
-<meta name="twitter:description" content="Nginx重载、热部署、日志切割配置文件重载1sudo nginx -s reload  nginx升级热部署 备份原二进制文件  1sudo cp nginx nginx.old   把新编译生成的二进制文件复制到nginx安装目录中的sbin目录下  1sudo cp -r ./nginx  /usr/local/nginx/sbin/ -f   查看nginx进程号，当前master进程号1">
+<meta name="twitter:description" content="配置文件重载1sudo nginx -s reload  nginx升级热部署 备份原二进制文件  1sudo cp nginx nginx.old   把新编译生成的二进制文件复制到nginx安装目录中的sbin目录下  1sudo cp -r ./nginx  /usr/local/nginx/sbin/ -f   查看nginx进程号，当前master进程号1334  1ps -ef | g">
 
 
 
@@ -365,7 +365,7 @@
       
 
       
-        <h2 id="Nginx重载、热部署、日志切割"><a href="#Nginx重载、热部署、日志切割" class="headerlink" title="Nginx重载、热部署、日志切割"></a>Nginx重载、热部署、日志切割</h2><h3 id="配置文件重载"><a href="#配置文件重载" class="headerlink" title="配置文件重载"></a>配置文件重载</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -s reload</span><br></pre></td></tr></table></figure>
+        <h3 id="配置文件重载"><a href="#配置文件重载" class="headerlink" title="配置文件重载"></a>配置文件重载</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -s reload</span><br></pre></td></tr></table></figure>
 
 <h3 id="nginx升级热部署"><a href="#nginx升级热部署" class="headerlink" title="nginx升级热部署"></a>nginx升级热部署</h3><ol>
 <li>备份原二进制文件</li>
@@ -381,6 +381,8 @@
 <li>查看nginx进程号，当前master进程号<code>1334</code></li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep nginx</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
 
 <ol start="4">
 <li>向master进程发送USR2信号，通知nginx进行热部署</li>
@@ -616,7 +618,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx重载、热部署、日志切割"><span class="nav-number">1.</span> <span class="nav-text">Nginx重载、热部署、日志切割</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件重载"><span class="nav-number">1.1.</span> <span class="nav-text">配置文件重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx升级热部署"><span class="nav-number">1.2.</span> <span class="nav-text">nginx升级热部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx日志切割"><span class="nav-number">1.3.</span> <span class="nav-text">nginx日志切割</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件重载"><span class="nav-number">1.</span> <span class="nav-text">配置文件重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx升级热部署"><span class="nav-number">2.</span> <span class="nav-text">nginx升级热部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx日志切割"><span class="nav-number">3.</span> <span class="nav-text">nginx日志切割</span></a></li></ol></div>
             
           </div>
         </section>

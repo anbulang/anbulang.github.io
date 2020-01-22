@@ -369,8 +369,7 @@
 
       
         
-          
-            <h2 id="Nginx重载、热部署、日志切割"><a href="#Nginx重载、热部署、日志切割" class="headerlink" title="Nginx重载、热部署、日志切割"></a>Nginx重载、热部署、日志切割</h2><h3 id="配置文件重载"><a href="#配置文件重载" class="headerlink" title="配置文件重载"></a>配置文件重载</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -s reload</span><br></pre></td></tr></table></figure>
+          <h3 id="配置文件重载"><a href="#配置文件重载" class="headerlink" title="配置文件重载"></a>配置文件重载</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -s reload</span><br></pre></td></tr></table></figure>
 
 <h3 id="nginx升级热部署"><a href="#nginx升级热部署" class="headerlink" title="nginx升级热部署"></a>nginx升级热部署</h3><ol>
 <li>备份原二进制文件</li>
@@ -386,30 +385,11 @@
 <li>查看nginx进程号，当前master进程号<code>1334</code></li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep nginx</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>向master进程发送USR2信号，通知nginx进行热部署</li>
-</ol>
-<blockquote>
-<p>给nginx发送USR2信号后，nginx会将logs/nginx.pid文件重命名为nginx.pid.oldbin，然后用新的可执行文件启动一个新的nginx主进程和对应的工作进程，并新建一个新的nginx.pid保存新的主进程号。</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kill -USR2 1334</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>优雅关闭所有的老Worker进程，老的Master进程还会存在，可通过reload命令重新拉起worker进程，用来版本回退。</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kill -WINCH 1334</span><br></pre></td></tr></table></figure>
-
-<h3 id="nginx日志切割"><a href="#nginx日志切割" class="headerlink" title="nginx日志切割"></a>nginx日志切割</h3><ol>
-<li>备份原日志</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mv access.log access.log.bak</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>向Nginx主进程发送USR1信号。USR1信号是重新打开日志文件，等同于<code>nginx -s reopen</code></li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kill -USR1 $(cat /usr/local/nginx/logs/nginx.pid)</span><br></pre></td></tr></table></figure>
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2020/01/22/Nginx-2020-01-22-Nginx重载、热部署、日志切割/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>

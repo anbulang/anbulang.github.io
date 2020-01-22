@@ -721,8 +721,8 @@
             
               
                 
-                <a class="post-title-link" href="/2014/10/02/Algorithm-2014-10-02-BagQueueStack/" itemprop="url">
-                  背包、队列和栈
+                <a class="post-title-link" href="/2014/10/02/Algorithm-2014-10-02-union-find/" itemprop="url">
+                  union-find算法
                 </a>
               
             
@@ -765,8 +765,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/10/02/Algorithm-2014-10-02-BagQueueStack/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/02/Algorithm-2014-10-02-BagQueueStack/" itemprop="commentsCount"></span>
+                <a href="/2014/10/02/Algorithm-2014-10-02-union-find/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/02/Algorithm-2014-10-02-union-find/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -790,15 +790,19 @@
 
       
         
-          <h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2>
+          <h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><p>一个对象的内存量是所有的实例变量使用的内存与对象本身的开销（一般是16字节，包括一个指向对象的类的引用、垃圾收集信息以及同步信息）相加。另外，一般内存中的使用都会被填充为8字节（64位计算机中的机器字）的倍数。</p>
+<ul>
+<li><strong>链表</strong>  嵌套的非静态内部类需要额外的8字节（用于一个指向外部类的引用）。一个Node对象需要40字节（16字节对象开销，两个引用16字节，8个字节的额外开销）。一个含有N个Integer整数的基于链表的栈需要使用(32+64N)字节。</li>
+<li><strong>数组</strong> Java 中数组为对象。一个原始数据类型的数组一般需要24字节的头信息（16字节的对象开销，4字节用于保存长度及4个填充字节）。对象数组需要加上所有引用的开销（8字节 * N）。</li>
+<li><strong>String</strong> 每个String对象总共使用40个字节（16个字节表示对象，三个int实例变量各需4字节，加上数组引用的8字节和4个填充字节）。
           <div class="post-more-link text-center">
-            <a class="btn" href="/2014/10/02/Algorithm-2014-10-02-BagQueueStack/#more" rel="contents">
+            <a class="btn" href="/2014/10/02/Algorithm-2014-10-02-union-find/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
         
       
-    </div>
+    </li></ul></div>
 
     <div>
       
