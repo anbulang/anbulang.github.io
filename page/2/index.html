@@ -300,6 +300,130 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/27/JavaScript-2016-07-27-3-Types-Values-and-Variables/" itemprop="url">
+                  Types,Values and Variables
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-27T00:57:49+08:00" content="2016-07-27">
+              2016-07-27
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/27/JavaScript-2016-07-27-3-Types-Values-and-Variables/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/27/JavaScript-2016-07-27-3-Types-Values-and-Variables/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="字符串的使用"><a href="#字符串的使用" class="headerlink" title="字符串的使用"></a>字符串的使用</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">"hello, world"</span>;</span><br><span class="line">s.substring(<span class="number">1</span>,<span class="number">4</span>);	<span class="comment">//"ell",第2-4个字符；与Java的substring(int beginIndex, int endIndex)方法相同。</span></span><br><span class="line">s.slice(<span class="number">1</span>,<span class="number">4</span>);		<span class="comment">//"ell",同上</span></span><br><span class="line">s.silece(<span class="number">-3</span>); 		<span class="comment">//"rld",最后三个字符</span></span><br><span class="line">s.replace(<span class="string">"h"</span>, <span class="string">"H"</span>); <span class="comment">//替换</span></span><br><span class="line">s.toUpperCase();	<span class="comment">//大写</span></span><br></pre></td></tr></table></figure>
+
+<p>在JavaScript中字符串是固定不变的，类似replace()和toUpperCase()的方法都返回新字符串，原字符串本身并没有发生改变。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/27/JavaScript-2016-07-27-3-Types-Values-and-Variables/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/10/06/Algorithm-2014-10-06-Search-3/" itemprop="url">
                   查找3
                 </a>
@@ -616,112 +740,6 @@
             
               
                 
-                <a class="post-title-link" href="/2014/10/04/Algorithm-2014-10-04-Search-1/" itemprop="url">
-                  查找1
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-10-04T00:00:00+08:00" content="2014-10-04">
-              2014-10-04
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/10/04/Algorithm-2014-10-04-Search-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/04/Algorithm-2014-10-04-Search-1/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h2><p>符号表遵循以下规则：没有重复的键、没有空键，空值。如下是一个简单的泛型符号表API：</p>
-<figure>
-     <a href="http://algs4.cs.princeton.edu/31elementary/images/symbol-table-api.png" target="_blank" rel="noopener"><img src="http://algs4.cs.princeton.edu/31elementary/images/symbol-table-api.png" alt></a>
-</figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/10/04/Algorithm-2014-10-04-Search-1/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2014/10/04/Algorithm-2014-10-04-Sort/" itemprop="url">
                   排序算法
                 </a>
@@ -849,7 +867,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
